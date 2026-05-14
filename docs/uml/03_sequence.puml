@@ -1,0 +1,87 @@
+@startuml Sequence_Tchat
+skinparam sequenceArrowThickness 1.8
+skinparam sequenceParticipantBorderColor #1a3c5e
+skinparam sequenceParticipantBackgroundColor #EBF3FB
+skinparam sequenceParticipantFontStyle bold
+skinparam sequenceParticipantFontSize 11
+skinparam sequenceLifeLineBorderColor #aaaaaa
+skinparam sequenceGroupBorderColor #555555
+skinparam sequenceGroupBackgroundColor #F5F5F5
+skinparam sequenceGroupFontColor #333333
+skinparam noteBorderColor #e6a817
+skinparam noteBackgroundColor #FFF8E1
+skinparam ArrowColor #1a3c5e
+skinparam roundCorner 6
+skinparam padding 5
+title <b>Diagramme de séquence — Envoi d'un message de tchat\nYour Car Your Way</b>
+
+actor "Client A\n(navigateur)" as CA #EBF3FB
+participant "Daphne / Channels\nChatConsumer" as CHAN #E8F5E9
+participant "Redis\nChannel Layer" as REDIS #FCE4EC
+database "PostgreSQL" as PG #FFF8E1
+actor "Client B\n(navigateur)" as CB #EDE9FE
+
+== ① Connexion initiale ==
+
+CA -> CHAN : WebSocket connect\nwss://host/ws/chat/support-123/
+activate CHAN
+CHAN -> REDIS : group_add("chat_support-123", channel_name)
+activate REDIS
+REDIS --> CHAN : OK
+deactivate REDIS
+CHAN -> PG : SELECT * FROM chat_message\nWHERE room_id = 123\nORDER BY sent_at DESC LIMIT 50
+activate PG
+PG --> CHAN : 50 derniers messages
+deactivate PG
+CHAN --> CA : WS accepted + historique messages
+deactivate CHAN
+
+== ② Envoi d'un message ==
+
+CA -> CHAN : WS send\n**{ "message": "Bonjour, j'ai un problème\navec ma réservation #456." }**
+activate CHAN
+
+note right of CHAN
+  Vérification :
+  - utilisateur authentifié ?
+  - message non vide ?
+  - longueur ≤ 2000 caractères ?
+end note
+
+== ③ Persistance en base ==
+
+CHAN -> PG : INSERT INTO chat_message\n(room_id, author_id, content, sent_at)
+activate PG
+PG --> CHAN : message_id=789, sent_at=2026-04-25T14:32:10
+deactivate PG
+
+== ④ Diffusion temps réel ==
+
+CHAN -> REDIS : group_send("chat_support-123",\n{ type: "chat_message", message, author, sent_at })
+activate REDIS
+REDIS --> CHAN : dispatch → chat_message() [Client A]
+REDIS --> CB : dispatch → chat_message() [Client B]
+deactivate REDIS
+
+== ⑤ Réception et affichage ==
+
+CHAN --> CA : WS message\n{ message, author: "alice", sent_at, message_id }
+deactivate CHAN
+CB --> CB : Affichage du message\ndans l'interface
+
+note over CA, CB
+  <b>Latence totale observée : &lt; 500 ms</b>
+  Les étapes ③ ④ ⑤ sont exécutées de façon asynchrone
+  grâce à async/await (Django Channels ASGI)
+end note
+
+== ⑥ Déconnexion ==
+
+CA -> CHAN : WebSocket close
+activate CHAN
+CHAN -> REDIS : group_discard("chat_support-123", channel_name)
+activate REDIS
+REDIS --> CHAN : OK
+deactivate REDIS
+deactivate CHAN
+@enduml

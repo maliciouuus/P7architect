@@ -1,0 +1,106 @@
+@startuml Modele_de_donnees
+skinparam classAttributeIconSize 0
+skinparam classFontSize 12
+skinparam classFontStyle bold
+skinparam classBackgroundColor #EBF3FB
+skinparam classBorderColor #1a3c5e
+skinparam classHeaderBackgroundColor #1a3c5e
+skinparam classHeaderFontColor white
+skinparam classHeaderFontSize 13
+skinparam ArrowColor #1a3c5e
+skinparam ArrowThickness 1.5
+skinparam noteBorderColor #e6a817
+skinparam noteBackgroundColor #FFF8E1
+skinparam padding 5
+skinparam roundCorner 8
+skinparam linetype ortho
+title <b>Diagramme de classes — Modèle de données\nYour Car Your Way</b>
+
+class User {
+  + id : int <<PK>>
+  + email : str <<unique>>
+  + first_name : str
+  + last_name : str
+  + language : str
+  + country : str
+  + is_active : bool
+  + date_joined : datetime
+  --
+  //hérite de AbstractUser Django//
+}
+
+class Room {
+  + id : int <<PK>>
+  + name : str <<unique>>
+  + created_at : datetime
+  --
+  //Salon de tchat support//
+}
+
+class Message {
+  + id : int <<PK>>
+  + content : text
+  + sent_at : datetime
+  + is_read : bool
+  --
+  //author nullable : conformité RGPD//
+  //(anonymisation à la suppression compte)//
+}
+
+class Vehicle {
+  + id : int <<PK>>
+  + brand : str
+  + model : str
+  + year : int
+  + category : str
+  + seats : int
+  + transmission : str
+  + fuel : str
+  + price_per_day : decimal
+  + is_available : bool
+}
+
+class Agency {
+  + id : int <<PK>>
+  + name : str
+  + address : str
+  + country : str
+  + latitude : decimal
+  + longitude : decimal
+  + phone : str
+  + is_active : bool
+}
+
+class Reservation {
+  + id : int <<PK>>
+  + start_date : date
+  + end_date : date
+  + status : str
+  + total_price : decimal
+  + created_at : datetime
+  --
+  //status : pending | confirmed//
+  //cancelled | completed//
+}
+
+' Relations
+User "M" -- "M" Room : participants >
+Room "1" *-- "N" Message : messages >
+User "0..1" <-- "N" Message : author
+User "1" -- "N" Reservation : client >
+Vehicle "1" -- "N" Reservation : vehicle >
+Agency "1" *-- "N" Vehicle : flotte >
+
+note right of Message
+  <b>Anonymisation RGPD</b>
+  author mis à NULL
+  à la suppression du compte
+  (SET_NULL Django)
+end note
+
+note bottom of Reservation
+  <b>Cycle de vie</b>
+  pending → confirmed → completed
+                     ↘ cancelled
+end note
+@enduml

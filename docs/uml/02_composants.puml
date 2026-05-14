@@ -1,0 +1,91 @@
+@startuml Composants
+skinparam componentStyle rectangle
+skinparam componentFontSize 12
+skinparam componentFontStyle bold
+skinparam componentBackgroundColor #EBF3FB
+skinparam componentBorderColor #1a3c5e
+skinparam ArrowColor #555555
+skinparam ArrowThickness 1.5
+skinparam packageBorderColor #3f87f5
+skinparam packageBackgroundColor #F0F4FF
+skinparam packageFontColor #1a3c5e
+skinparam packageFontStyle bold
+skinparam packageFontSize 13
+skinparam noteBorderColor #e6a817
+skinparam noteBackgroundColor #FFF8E1
+skinparam roundCorner 8
+skinparam padding 6
+title <b>Diagramme de composants\nYour Car Your Way</b>
+
+package "Application Django" {
+
+  package "accounts" #EBF3FB {
+    [User Model] as USER
+    [Authentification] as AUTH
+    [Gestion Profil] as PROFIL
+    [Export RGPD] as RGPD
+  }
+
+  package "vehicles" #FFF8E1 {
+    [Vehicle Model] as VEH
+    [Agency Model] as AGC
+    [Recherche & Filtres] as SEARCH
+    [API REST Catalogue] as VEHI_API
+  }
+
+  package "reservations" #F3E8FF {
+    [Reservation Model] as RES
+    [Création / Annulation] as BOOKING
+    [Export PDF Contrat] as PDF
+    [Historique Client] as HISTO
+  }
+
+  package "chat ⚡ temps réel" #E8F5E9 {
+    [Room & Message Models] as CHAT_MODEL
+    [ChatConsumer\n(WebSocket)] as CONSUMER
+    [API REST Historique] as CHAT_API
+    [Routing WebSocket] as ROUTING
+  }
+
+  database "Django Admin\n(back-office auto-généré)" as ADMIN #F5F5F5
+}
+
+' Infrastructure externe
+database "PostgreSQL\n(RDS)" as PG #FFF3E0
+queue "Redis\n(ElastiCache)" as REDIS #FCE4EC
+cloud "SMTP / SES\n(e-mails)" as SMTP #E8F5E9
+storage "Stockage S3\n(médias, PDF)" as S3 #E8F5E9
+
+' Dépendances internes
+AUTH --> USER
+PROFIL --> USER
+RGPD --> USER
+BOOKING --> RES
+BOOKING --> VEH
+HISTO --> RES
+PDF --> RES
+SEARCH --> VEH
+SEARCH --> AGC
+CONSUMER --> CHAT_MODEL
+CONSUMER --> ROUTING
+CHAT_API --> CHAT_MODEL
+
+' Vers infrastructure
+USER ..> PG : ORM Django
+RES ..> PG : ORM Django
+CHAT_MODEL ..> PG : ORM Django
+VEH ..> PG : ORM Django
+CONSUMER --> REDIS : channel_layer\ngroup_send / group_add
+AUTH ..> SMTP : e-mails\nconfirmation
+PDF ..> S3 : stockage\ncontrats
+VEH ..> S3 : photos\nvéhicules
+
+ADMIN ..> PG : lecture/écriture
+
+note right of CONSUMER
+  <b>Async (ASGI)</b>
+  Connexion WebSocket persistante
+  Diffusion via Redis Channel Layer
+  Latence cible < 500 ms
+end note
+@enduml

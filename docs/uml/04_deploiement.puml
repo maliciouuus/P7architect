@@ -1,0 +1,91 @@
+@startuml Deploiement
+skinparam nodeFontSize 12
+skinparam nodeFontStyle bold
+skinparam nodeBackgroundColor #EBF3FB
+skinparam nodeBorderColor #1a3c5e
+skinparam artifactBackgroundColor #FFF8E1
+skinparam artifactBorderColor #e6a817
+skinparam componentBackgroundColor white
+skinparam componentBorderColor #555555
+skinparam ArrowColor #555555
+skinparam ArrowThickness 1.5
+skinparam cloudBorderColor #3f87f5
+skinparam cloudBackgroundColor #F0F4FF
+skinparam cloudFontColor #1a3c5e
+skinparam cloudFontStyle bold
+skinparam databaseBackgroundColor #FFF3E0
+skinparam databaseBorderColor #e6a817
+skinparam roundCorner 8
+skinparam padding 5
+title <b>Diagramme de déploiement\nYour Car Your Way — Infrastructure production</b>
+
+node "Utilisateur Final" as USER {
+  component "Navigateur web\n(Chrome, Firefox, Safari)" as BROWSER
+}
+
+cloud "Infrastructure Cloud\n(AWS / GCP)" as CLOUD {
+
+  node "Load Balancer" as LB {
+    component "AWS ALB\nTerminaison TLS/SSL" as ALB
+  }
+
+  node "Serveur Web" as WEB {
+    component "Nginx\n(Reverse Proxy)" as NGINX
+    note right of NGINX
+      - Cache fichiers statiques
+      - Compression gzip
+      - Redirection HTTP → HTTPS
+    end note
+  }
+
+  node "Serveur Applicatif" as APP {
+    component "Daphne (ASGI)\nDjango 4.2 + Channels 4" as DAPHNE
+    note right of DAPHNE
+      Gère simultanément :
+      - Requêtes HTTP classiques
+      - Connexions WebSocket (tchat)
+    end note
+  }
+
+  node "Base de données" as DB_NODE {
+    database "PostgreSQL 15\n(Amazon RDS)" as PG
+    note right of PG
+      Multi-AZ pour la haute dispo
+      Sauvegardes automatiques (7j)
+    end note
+  }
+
+  node "Cache & Temps réel" as CACHE_NODE {
+    database "Redis 7\n(ElastiCache)" as REDIS
+    note right of REDIS
+      - Channel Layer WebSocket
+      - Cache sessions Django
+      - Cache requêtes fréquentes
+    end note
+  }
+
+  node "Stockage Objet" as STORE_NODE {
+    storage "Amazon S3\n+ CloudFront CDN" as S3
+    note right of S3
+      - Photos véhicules
+      - Contrats PDF
+      - Fichiers statiques JS/CSS
+    end note
+  }
+
+  node "Service E-mail" as MAIL_NODE {
+    component "Amazon SES\n(SMTP)" as SES
+  }
+
+}
+
+' Flux
+BROWSER --> ALB : HTTPS / WSS
+ALB --> NGINX : HTTP
+NGINX --> DAPHNE : proxy_pass\n(HTTP + WS)
+DAPHNE --> PG : ORM Django\n(TCP 5432)
+DAPHNE --> REDIS : Channel Layer\n(TCP 6379)
+DAPHNE --> SES : Envoi e-mails\n(SMTP TLS)
+DAPHNE --> S3 : Médias & PDF\n(SDK boto3)
+NGINX --> S3 : Fichiers statiques\n(CloudFront)
+@enduml
