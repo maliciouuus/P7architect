@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Fiche outils — Your Car Your Way</title>
+<style>
+  :root {
+    --blue-dark: #0f2942;
+    --blue-main: #1a4a7a;
+    --blue-mid:  #2d6da8;
+    --blue-pale: #f0f6fc;
+    --gold:      #e8a020;
+    --border:    #d0dce8;
+    --text:      #1c2b3a;
+    --light:     #4a6278;
+    --green:     #1e7e4e;
+    --green-bg:  #eafaf1;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 10pt;
+    color: var(--text);
+    background: #f8fafc;
+    padding: 30px;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(15,41,66,0.10);
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue-main));
+    padding: 28px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header-left {}
+  .header-tag {
+    font-size: 7.5pt;
+    font-weight: 700;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .header-title {
+    font-size: 18pt;
+    font-weight: 800;
+    color: white;
+    line-height: 1.2;
+  }
+  .header-sub {
+    font-size: 9pt;
+    color: rgba(255,255,255,0.55);
+    margin-top: 4px;
+  }
+  .header-right {
+    text-align: right;
+    font-size: 8.5pt;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.8;
+  }
+
+  /* Body */
+  .body { padding: 28px 36px 36px; }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .grid-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Card */
+  .card {
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .card-header {
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-icon { font-size: 16pt; }
+  .card-name { font-size: 11pt; font-weight: 800; color: var(--blue-dark); }
+  .card-version { font-size: 8pt; color: var(--light); margin-top: 1px; }
+  .card-body { padding: 12px 16px; background: white; }
+  .card-row { display: flex; gap: 8px; margin-bottom: 7px; align-items: flex-start; }
+  .card-label {
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    min-width: 62px;
+    max-width: 62px;
+    padding-top: 2px;
+    color: var(--light);
+    flex-shrink: 0;
+    word-break: keep-all;
+  }
+  .card-val {
+    font-size: 9.5pt;
+    color: var(--text);
+    line-height: 1.55;
+    flex: 1;
+    min-width: 0;
+  }
+  .card-val code {
+    font-family: 'Courier New', monospace;
+    font-size: 8pt;
+    background: #f1f5f9;
+    padding: 1px 5px;
+    border-radius: 3px;
+    border: 1px solid #e2e8f0;
+    word-break: break-all;
+  }
+
+  /* Colours per tool */
+  .c-plantuml .card-header { background: #fff8e1; }
+  .c-django    .card-header { background: #e8f5e9; }
+  .c-channels  .card-header { background: #e3f2fd; }
+  .c-redis     .card-header { background: #fce4ec; }
+  .c-postgres  .card-header { background: #e8eaf6; }
+  .c-daphne   .card-header { background: #f3e5f5; }
+  .c-drf       .card-header { background: #e0f2f1; }
+  .c-weasy     .card-header { background: #fff3e0; }
+  .c-python    .card-header { background: #fffde7; }
+
+  /* Q&A section */
+  .qa-section { margin-top: 20px; }
+  .qa-title {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--blue-main);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--blue-pale);
+  }
+  .qa { margin-bottom: 12px; border-radius: 8px; overflow: hidden; border: 1.5px solid var(--border); }
+  .qa-q {
+    background: var(--blue-dark);
+    color: white;
+    font-size: 9pt;
+    font-weight: 700;
+    padding: 8px 14px;
+    display: flex;
+    gap: 8px;
+  }
+  .qa-q::before { content: 'Q'; color: var(--gold); font-weight: 800; }
+  .qa-a {
+    background: var(--blue-pale);
+    font-size: 9pt;
+    padding: 9px 14px;
+    color: var(--text);
+    line-height: 1.6;
+    padding-left: 28px;
+    position: relative;
+  }
+  .qa-a::before {
+    content: 'R';
+    position: absolute;
+    left: 12px;
+    font-weight: 800;
+    color: var(--green);
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1.5px solid var(--border);
+    padding: 12px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fafc;
+  }
+  .footer-left { font-size: 8pt; color: var(--light); }
+  .footer-right { font-size: 8pt; color: var(--light); }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .page { box-shadow: none; border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-tag">Fiche de référence rapide</div>
+      <div class="header-title">Outils &amp; Technologies utilisés</div>
+      <div class="header-sub">Your Car Your Way — Projet P7 Architecture logicielle</div>
+    </div>
+    <div class="header-right">
+      Avril 2026<br>
+      Version 1.0<br>
+      Confidentiel
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- LIGNE 1 -->
+    <div class="grid">
+
+      <!-- PlantUML -->
+      <div class="card c-plantuml">
+        <div class="card-header">
+          <div class="card-icon">📐</div>
+          <div>
+            <div class="card-name">PlantUML</div>
+            <div class="card-version">v1.2024 · Open source · Java</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-row"><span class="card-label">Rôle</span><span class="card-val">Génération des <strong>4 diagrammes UML</strong> à partir de fichiers texte (<code>.puml</code>)</span></div>
+          <div class="card-row"><span class="card-label">Diagrammes</span><span class="card-val">Classes · Composants · Séquence · Déploiement</span></div>
+          <div class="card-row"><span class="card-label">Pourquoi</span><span class="card-val">Standard industrie. Les diagrammes sont du texte versionnable (Git). Reproductibles et modifiables facilement.</span></div>
+          <div class="card-row"><span class="card-label">Commande</span><span class="card-val"><code>plantuml -tpng docs/uml/*.puml</code></span></div>
+          <div class="card-row"><span class="card-label">Sortie</span><span class="card-val">PNG haute résolution intégrés dans les PDF</span></div>
+        </div>
+      </div>
+
+      <!-- WeasyPrint -->
+      <div class="card c-weasy">
+        <div class="card-header">
+          <div class="card-icon">📄</div>
+          <div>
+            <div class="card-name">WeasyPrint</div>
+            <div class="card-version">v62 · Open source · Python</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-row"><span class="card-label">Rôle</span><span class="card-val">Conversion des fichiers <strong>HTML → PDF</strong> pour les deux livrables documents</span></div>
+          <div class="card-row"><span class="card-label">Pourquoi</span><span class="card-val">Permet de maîtriser le rendu à 100% en CSS pur. Les images UML (base64) sont intégrées directement dans le HTML → PDF auto-portant.</span></div>
+          <div class="card-row"><span class="card-label">Commande</span><span class="card-val"><code>python3 docs/generate_pdf.py</code></span></div>
+          <div class="card-row"><span class="card-label">vs Pandoc</span><span class="card-val">Pandoc nécessite LaTeX (lourd). WeasyPrint utilise CSS natif, plus simple et plus rapide à personnaliser.</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LIGNE 2 — stack technique PoC -->
+    <div class="grid">
+
+      <!-- Django -->
+      <div class="card c-django">
+        <div class="card-header">
+          <div class="card-icon">🟢</div>
+          <div>
+            <div class="card-name">Django 4.2 LTS</div>
+            <div class="card-version">Python · Open source</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-row"><span class="card-label">Rôle</span><span class="card-val">Framework web backend principal</span></div>
+          <div class="card-row"><span class="card-label">Apporte</span><span class="card-val">ORM · Admin auto-généré · Auth · i18n · CSRF</span></div>
+          <div class="card-row"><span class="card-label">LTS</span><span class="card-val">Support sécurité garanti jusqu'en avril 2026</span></div>
+          <div class="card-row"><span class="card-label">Vs FastAPI</span><span class="card-val">Admin et ORM intégrés = plusieurs semaines économisées</span></div>
+        </div>
+      </div>
+
+      <!-- Django Channels -->
+      <div class="card c-channels">
+        <div class="card-header">
+          <div class="card-icon">⚡</div>
+          <div>
+            <div class="card-name">Django Channels 4</div>
+            <div class="card-version">Extension Django officielle</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-row"><span class="card-label">Rôle</span><span class="card-val">Tchat temps réel via <strong>WebSocket</strong></span></div>
+          <div class="card-row"><span class="card-label">Comment</span><span class="card-val">Transforme Django de WSGI → <strong>ASGI</strong> pour gérer les connexions persistantes</span></div>
+          <div class="card-row"><span class="card-label">Consumer</span><span class="card-val"><code>AsyncWebsocketConsumer</code> : connect · receive · disconnect</span></div>
+          <div class="card-row"><span class="card-label">Vs Socket.io</span><span class="card-val">Pas de second service Node.js à maintenir à côté</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LIGNE 3 -->
+    <div class="grid">
+
+      <!-- Redis -->
+      <div class="card c-redis">
+        <div class="card-header">
+          <div class="card-icon">🔴</div>
+          <div>
+            <div class="card-name">Redis 7</div>
+            <div class="card-version">Base de données en mémoire · Open source</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-row"><span class="card-label">Rôle</span><span class="card-val"><strong>Channel Layer</strong> : diffuse les messages WebSocket entre les workers Daphne</span></div>
+          <div class="card-row"><span class="card-label">Aussi</span><span class="card-val">Cache de sessions, cache de requêtes fréquentes</span></div>
+          <div class="card-row"><span class="card-label">Latence</span><span class="card-val">Ordre de la microseconde (stockage en mémoire RAM)</span></div>
+          <div class="card-row"><span class="card-label">En prod</span><span class="card-val">AWS ElastiCache (service Redis managé sur le cloud)</span></div>
+        </div>
+      </div>
+
+      <!-- PostgreSQL -->
+      <div class="card c-postgres">
+        <div class="card-header">
+          <div class="card-icon">🐘</div>
+          <div>
+            <div class="card-name">PostgreSQL 15</div>
+            <div class="card-version">Open source · Base relationnelle SQL</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-row"><span class="card-label">Rôle</span><span class="card-val">Base de données principale de l'application</span></div>
+          <div class="card-row"><span class="card-label">Pourquoi</span><span class="card-val">Schéma strict · transactions ACID · support ORM Django natif · extension PostGIS (géo)</span></div>
+          <div class="card-row"><span class="card-label">Vs MongoDB</span><span class="card-val">L'audit a montré les problèmes concrets de données incohérentes sans schéma</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LIGNE 4 -->
+    <div class="grid">
+
+      <!-- Daphne -->
+      <div class="card c-daphne">
+        <div class="card-header">
+          <div class="card-icon">🌐</div>
+          <div>
+            <div class="card-name">Daphne</div>
+            <div class="card-version">Serveur ASGI · Équipe Django Channels</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-row"><span class="card-label">Rôle</span><span class="card-val">Serveur qui exécute Django en mode ASGI (HTTP + WebSocket simultanément)</span></div>
+          <div class="card-row"><span class="card-label">Pourquoi</span><span class="card-val">Gunicorn (WSGI classique) ne supporte pas WebSocket — Daphne est obligatoire dès qu'on utilise Channels</span></div>
+          <div class="card-row"><span class="card-label">En prod</span><span class="card-val">Placé derrière Nginx qui gère TLS (HTTPS/WSS) et le cache des fichiers statiques</span></div>
+        </div>
+      </div>
+
+      <!-- DRF -->
+      <div class="card c-drf">
+        <div class="card-header">
+          <div class="card-icon">🔌</div>
+          <div>
+            <div class="card-name">Django REST Framework</div>
+            <div class="card-version">DRF 3.14 · Open source</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-row"><span class="card-label">Rôle</span><span class="card-val">API REST pour l'historique des messages et la liste des rooms</span></div>
+          <div class="card-row"><span class="card-label">Apporte</span><span class="card-val">Sérialisation JSON · pagination · authentification · documentation automatique</span></div>
+          <div class="card-row"><span class="card-label">Vs GraphQL</span><span class="card-val">REST suffisant pour des besoins bien définis, outillage plus simple et mature</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Q&A -->
+    <div class="qa-section">
+      <div class="qa-title">Questions fréquentes du mentor — Réponses préparées</div>
+
+      <div class="qa">
+        <div class="qa-q">Pourquoi PlantUML plutôt que Draw.io ou Lucidchart ?</div>
+        <div class="qa-a">PlantUML génère des diagrammes à partir de <strong>texte simple</strong> (fichiers <code>.puml</code>). Ça veut dire qu'ils sont <strong>versionnables dans Git</strong> (on voit les changements comme du code), reproductibles à l'identique, et modifiables sans ouvrir un outil graphique. C'est le choix standard en entreprise pour les projets qui évoluent. Draw.io c'est bien pour une démo rapide, mais pas adapté à un projet versionné.</div>
+      </div>
+
+      <div class="qa">
+        <div class="qa-q">Comment vous avez généré les PDF ?</div>
+        <div class="qa-a">J'ai d'abord écrit les documents en <strong>HTML/CSS</strong> pour avoir un contrôle total sur le rendu (mise en page, couleurs, tableaux, cartes). Ensuite j'ai utilisé <strong>WeasyPrint</strong>, une bibliothèque Python qui convertit HTML → PDF en respectant les standards CSS. Les diagrammes UML (PNG) sont encodés en base64 et intégrés directement dans le HTML, ce qui rend les PDF totalement auto-portants — pas de fichier externe manquant.</div>
+      </div>
+
+      <div class="qa">
+        <div class="qa-q">Pourquoi Django Channels plutôt qu'une autre solution pour le tchat ?</div>
+        <div class="qa-a">Parce que c'est l'extension <strong>officielle</strong> de Django pour les WebSockets. Elle s'intègre sans friction — pas besoin d'un second service (pas de Node.js à maintenir à côté). Elle transforme Django de WSGI (synchrone, pas de WS) en ASGI (asynchrone, supporte WS). Redis joue le rôle de "standard téléphonique" qui synchronise les messages entre plusieurs workers en parallèle.</div>
+      </div>
+
+      <div class="qa">
+        <div class="qa-q">C'est quoi ASGI et pourquoi c'est différent de WSGI ?</div>
+        <div class="qa-a"><strong>WSGI</strong> (ancien standard) : le serveur traite une requête, attend la réponse, ferme la connexion. Une connexion = une requête = une réponse. <strong>ASGI</strong> (nouveau standard) : la connexion peut rester ouverte indéfiniment, le serveur peut envoyer des données à tout moment sans que le client l'ait demandé. C'est ce qui permet le WebSocket. Daphne est le serveur ASGI officiel de l'équipe Django Channels.</div>
+      </div>
+
+      <div class="qa">
+        <div class="qa-q">Pourquoi PostgreSQL et pas MySQL ou MongoDB ?</div>
+        <div class="qa-a">L'audit a montré que MongoDB sans schéma strict a créé des <strong>incohérences de données</strong> dans l'application nord-américaine existante. PostgreSQL impose un schéma, garantit les <strong>transactions ACID</strong> (si une réservation échoue à mi-chemin, la base revient à son état antérieur — pas de données corrompues), et a un support Django ORM natif et premium. MySQL aurait aussi fonctionné mais PostgreSQL a de meilleures extensions (PostGIS pour la géolocalisation future).</div>
+      </div>
+
+      <div class="qa">
+        <div class="qa-q">Pourquoi le champ author est nullable dans Message ?</div>
+        <div class="qa-a">C'est une décision de conformité <strong>RGPD</strong>. Quand un client supprime son compte, on ne peut pas supprimer ses messages (l'historique de la conversation reste utile pour le support en cas de litige). On applique alors le <strong>SET_NULL</strong> de Django : le message est conservé, mais son auteur devient NULL et s'affiche "Utilisateur supprimé" dans l'interface. C'est de l'<strong>anonymisation</strong> plutôt que de la suppression.</div>
+      </div>
+
+    </div>
+
+  </div><!-- /body -->
+
+  <div class="footer">
+    <div class="footer-left">Your Car Your Way · Projet P7 · Architecture logicielle · Avril 2026</div>
+    <div class="footer-right">Fiche de référence — usage interne</div>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>
