@@ -117,6 +117,21 @@ Accéder à l'interface : [http://localhost:8000/chat/](http://localhost:8000/ch
 
 Pour créer des salons de tchat, aller dans l'admin : [http://localhost:8000/admin/](http://localhost:8000/admin/)
 
+## Lancer les tests
+
+```bash
+# Depuis le dossier backend/
+pytest chat/tests/test_models.py chat/tests/test_serializers.py chat/tests/test_views.py -v -p no:pytest_ethereum
+```
+
+**Résultat attendu : 40 tests passés ✅**
+
+| Fichier | Tests | Ce qui est vérifié |
+|---|---|---|
+| `test_models.py` | 17 | Room, Message, RGPD (SET_NULL), CASCADE |
+| `test_serializers.py` | 12 | Sérialisation JSON, champs, author_username |
+| `test_views.py` | 11 | HTTP 200/201/400/403/404, permissions |
+
 ## Limites de la PoC
 
 - Interface graphique minimaliste (l'objectif est la démonstration technique)

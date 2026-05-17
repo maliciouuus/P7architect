@@ -1,1201 +1,994 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cahier des charges — Your Car Your Way</title>
-<style>
-  /* ── Variables ── */
-  :root {
-    --blue-dark:  #0f2942;
-    --blue-main:  #1a4a7a;
-    --blue-mid:   #2d6da8;
-    --blue-light: #d6e8f7;
-    --blue-pale:  #f0f6fc;
-    --gold:       #e8a020;
-    --gold-light: #fdf3e0;
-    --text:       #1c2b3a;
-    --text-light: #4a6278;
-    --border:     #d0dce8;
-    --white:      #ffffff;
-    --success:    #1e7e4e;
-    --success-bg: #eafaf1;
-  }
+<html lang="fr"><head><meta charset="UTF-8"><title>Cahier des charges — Your Car Your Way</title>
+<style>/* ═══════════════════════════════════════════════════════
+   DESIGN SYSTEM — YOUR CAR YOUR WAY · v3
+   Style cabinet conseil premium · print-optimised
+═══════════════════════════════════════════════════════ */
 
-  /* ── Reset ── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── Variables ─────────────────────────────────────── */
+:root {
+  --ink:      #08192e;
+  --navy:     #0c2d4f;
+  --blue:     #154f82;
+  --mid:      #2471a3;
+  --sky:      #3498db;
+  --pale:     #ebf5fb;
+  --lighter:  #f5fafd;
+  --gold:     #c9930a;
+  --gold-lt:  #fef9ee;
+  --border:   #ccdde9;
+  --text:     #1b2e3e;
+  --muted:    #5d7a8e;
+  --white:    #ffffff;
+  --green:    #1a6e3f;
+  --green-bg: #eafaf1;
+  --red:      #992b22;
+  --red-bg:   #fdf0ee;
+  --amber:    #a56c00;
+  --amber-bg: #fef6e4;
+}
 
-  /* ── Base ── */
-  body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    font-size: 10.5pt;
-    line-height: 1.7;
-    color: var(--text);
-    background: var(--white);
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* ── Page de couverture ── */
-  .cover {
-    min-height: 100vh;
-    background: linear-gradient(160deg, var(--blue-dark) 0%, var(--blue-main) 60%, var(--blue-mid) 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 60px 70px;
-    page-break-after: always;
-    position: relative;
-    overflow: hidden;
-  }
-  .cover::before {
-    content: '';
-    position: absolute;
-    right: -80px; top: -80px;
-    width: 420px; height: 420px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.04);
-  }
-  .cover::after {
-    content: '';
-    position: absolute;
-    left: -60px; bottom: -60px;
-    width: 300px; height: 300px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.03);
-  }
-  .cover-top { position: relative; z-index: 1; }
-  .cover-logo {
-    font-size: 13pt;
-    font-weight: 700;
-    color: rgba(255,255,255,0.5);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 80px;
-  }
-  .cover-badge {
-    display: inline-block;
-    background: var(--gold);
-    color: var(--blue-dark);
-    font-size: 8pt;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 6px 16px;
-    border-radius: 20px;
-    margin-bottom: 24px;
-  }
-  .cover-title {
-    font-size: 36pt;
-    font-weight: 800;
-    color: var(--white);
-    line-height: 1.15;
-    margin-bottom: 16px;
-  }
-  .cover-subtitle {
-    font-size: 15pt;
-    color: rgba(255,255,255,0.65);
-    font-weight: 300;
-    margin-bottom: 48px;
-  }
-  .cover-divider {
-    width: 60px;
-    height: 4px;
-    background: var(--gold);
-    border-radius: 2px;
-    margin-bottom: 48px;
-  }
-  .cover-meta {
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
-  }
-  .cover-meta-item { }
-  .cover-meta-label {
-    font-size: 8pt;
-    color: rgba(255,255,255,0.4);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 4px;
-  }
-  .cover-meta-value {
-    font-size: 10pt;
-    color: rgba(255,255,255,0.85);
-    font-weight: 600;
-  }
-  .cover-bottom {
-    position: relative;
-    z-index: 1;
-    border-top: 1px solid rgba(255,255,255,0.12);
-    padding-top: 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .cover-company {
-    font-size: 11pt;
-    font-weight: 700;
-    color: rgba(255,255,255,0.7);
-  }
-  .cover-confidential {
-    font-size: 8pt;
-    color: rgba(255,255,255,0.35);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
+body {
+  font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+  line-height: 1.72;
+  color: var(--text);
+  background: white;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
 
-  /* ── Contenu principal ── */
-  .content { max-width: 860px; margin: 0 auto; padding: 60px 70px; }
+/* ── @page ──────────────────────────────────────────── */
+@page { size: A4; margin: 0; }
 
-  /* ── Sommaire ── */
-  .toc { margin-bottom: 60px; page-break-after: always; }
-  .toc-title {
-    font-size: 20pt;
-    font-weight: 800;
-    color: var(--blue-dark);
-    margin-bottom: 8px;
-  }
-  .toc-subtitle {
-    font-size: 10pt;
-    color: var(--text-light);
-    margin-bottom: 32px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid var(--blue-light);
-  }
-  .toc-section {
-    display: flex;
-    align-items: baseline;
-    padding: 8px 0;
-    border-bottom: 1px dotted var(--border);
-    gap: 12px;
-  }
-  .toc-num {
-    font-size: 9pt;
-    font-weight: 700;
-    color: var(--blue-mid);
-    min-width: 28px;
-  }
-  .toc-label {
-    font-size: 10.5pt;
-    color: var(--text);
-    flex: 1;
-  }
-  .toc-sub {
-    display: flex;
-    align-items: baseline;
-    padding: 5px 0 5px 28px;
-    gap: 12px;
-    border-bottom: 1px dotted var(--border);
-  }
-  .toc-sub-num {
-    font-size: 8.5pt;
-    color: var(--text-light);
-    min-width: 40px;
-  }
-  .toc-sub-label {
-    font-size: 9.5pt;
-    color: var(--text-light);
-  }
+/* ── Couverture ─────────────────────────────────────── */
+.cover {
+  width: 210mm;
+  min-height: 297mm;
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  page-break-after: always;
+}
 
-  /* ── Sections ── */
-  .section { margin-bottom: 56px; page-break-inside: avoid; }
-  .section-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    margin-bottom: 28px;
-    padding-bottom: 16px;
-    border-bottom: 2px solid var(--blue-light);
-  }
-  .section-num {
-    background: var(--blue-main);
-    color: white;
-    font-size: 13pt;
-    font-weight: 800;
-    min-width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .section-titles { }
-  .section-title {
-    font-size: 16pt;
-    font-weight: 800;
-    color: var(--blue-dark);
-    line-height: 1.2;
-  }
-  .section-desc {
-    font-size: 9.5pt;
-    color: var(--text-light);
-    margin-top: 4px;
-  }
+/* formes géométriques décoratives */
+.cover-geo-1 {
+  position: absolute;
+  right: -30px; top: -30px;
+  width: 360px; height: 360px;
+  background: linear-gradient(135deg,rgba(255,255,255,0.055),rgba(255,255,255,0));
+  border-radius: 50%;
+}
+.cover-geo-2 {
+  position: absolute;
+  right: 60px; top: 60px;
+  width: 200px; height: 200px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.cover-geo-3 {
+  position: absolute;
+  left: -50px; bottom: 80px;
+  width: 240px; height: 240px;
+  border: 1px solid rgba(255,255,255,0.045);
+  border-radius: 50%;
+}
+.cover-band {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 56px; width: 3px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    var(--gold) 20%,
+    var(--gold) 80%,
+    transparent 100%);
+}
 
-  /* ── Sous-sections ── */
-  h3 {
-    font-size: 12pt;
-    font-weight: 700;
-    color: var(--blue-main);
-    margin: 28px 0 12px;
-    padding-left: 12px;
-    border-left: 3px solid var(--gold);
-  }
-  h4 {
-    font-size: 10.5pt;
-    font-weight: 700;
-    color: var(--text);
-    margin: 20px 0 8px;
-  }
+.cover-inner {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 52px 68px;
+}
+.cover-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 72px;
+}
+.cover-logo-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.cover-logo-text {
+  font-size: 8.5pt;
+  font-weight: 700;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.cover-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(201,147,10,0.45);
+  background: rgba(201,147,10,0.1);
+  color: #e8b84b;
+  font-size: 7pt;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 2px;
+  margin-bottom: 26px;
+}
+.cover-title {
+  font-size: 34pt;
+  font-weight: 900;
+  color: white;
+  line-height: 1.12;
+  margin-bottom: 18px;
+  max-width: 440px;
+  letter-spacing: -0.5px;
+}
+.cover-subtitle {
+  font-size: 11pt;
+  color: rgba(255,255,255,0.48);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 400px;
+  margin-bottom: 48px;
+}
+.cover-rule {
+  width: 40px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+  margin-bottom: 36px;
+}
+.cover-meta {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.cover-meta-item { }
+.cover-meta-label {
+  font-size: 6.5pt;
+  color: rgba(255,255,255,0.28);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 4px;
+}
+.cover-meta-value {
+  font-size: 9.5pt;
+  font-weight: 700;
+  color: rgba(255,255,255,0.78);
+}
+.cover-footer {
+  position: relative;
+  z-index: 2;
+  padding: 18px 68px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cover-footer-co {
+  font-size: 7.5pt;
+  color: rgba(255,255,255,0.28);
+}
+.cover-footer-conf {
+  font-size: 7pt;
+  color: rgba(255,255,255,0.18);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
 
-  /* ── Paragraphes ── */
-  p { margin-bottom: 12px; }
+/* ── Sommaire ───────────────────────────────────────── */
+.toc-page {
+  padding: 20mm 20mm 0;
+  page-break-after: always;
+}
+.toc-header {
+  border-bottom: 2px solid var(--navy);
+  padding-bottom: 10px;
+  margin-bottom: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.toc-header-title {
+  font-size: 8pt;
+  font-weight: 800;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.toc-header-doc {
+  font-size: 7.5pt;
+  color: var(--muted);
+}
+.toc-title {
+  font-size: 22pt;
+  font-weight: 900;
+  color: var(--navy);
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+.toc-sub {
+  font-size: 9.5pt;
+  color: var(--muted);
+  margin-bottom: 36px;
+}
+.toc-entry {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eef4f8;
+}
+.toc-entry:last-child { border-bottom: none; }
+.toc-num {
+  background: var(--navy);
+  color: var(--gold);
+  font-size: 9pt;
+  font-weight: 900;
+  width: 32px; height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.toc-name {
+  flex: 1;
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: var(--ink);
+}
+.toc-desc {
+  font-size: 8.5pt;
+  color: var(--muted);
+  margin-top: 1px;
+}
+.toc-dots {
+  flex: 0 0 60px;
+  border-bottom: 1px dotted var(--border);
+  margin: 0 8px;
+  height: 1px;
+  align-self: center;
+}
 
-  /* ── Tableaux ── */
-  .table-wrap { overflow-x: auto; margin: 16px 0 24px; }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 9.5pt;
-  }
-  thead tr {
-    background: var(--blue-dark);
-  }
-  thead th {
-    color: white;
-    padding: 10px 14px;
-    text-align: left;
-    font-weight: 600;
-    font-size: 9pt;
-    letter-spacing: 0.3px;
-  }
-  tbody tr:nth-child(even) td { background: var(--blue-pale); }
-  tbody tr:hover td { background: var(--blue-light); }
-  tbody td {
-    padding: 9px 14px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text);
-    vertical-align: top;
-  }
-  td strong { color: var(--blue-main); }
+/* ── Body ───────────────────────────────────────────── */
+.doc-body { padding: 18mm 20mm; }
 
-  /* ── User story card ── */
-  .us-card {
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    margin: 24px 0;
-    page-break-inside: avoid;
-    box-shadow: 0 2px 8px rgba(15,41,66,0.06);
-  }
-  .us-header {
-    background: var(--blue-main);
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-  .us-id {
-    background: var(--gold);
-    color: var(--blue-dark);
-    font-size: 8.5pt;
-    font-weight: 800;
-    padding: 3px 10px;
-    border-radius: 20px;
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-  }
-  .us-name {
-    font-size: 11pt;
-    font-weight: 700;
-    color: white;
-  }
-  .us-body { padding: 18px 20px; background: white; }
-  .us-story {
-    background: var(--blue-pale);
-    border-left: 4px solid var(--blue-mid);
-    border-radius: 0 8px 8px 0;
-    padding: 14px 18px;
-    margin-bottom: 16px;
-    font-size: 10pt;
-    color: var(--text);
-    line-height: 1.7;
-  }
-  .us-story em { color: var(--blue-mid); font-style: normal; font-weight: 600; }
-  .us-why {
-    font-size: 9pt;
-    color: var(--text-light);
-    margin-bottom: 14px;
-    font-style: italic;
-  }
+/* en-tête de page */
+.page-hd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 9px;
+  border-bottom: 2px solid var(--navy);
+  margin-bottom: 28px;
+}
+.page-hd-left {
+  font-size: 7pt;
+  font-weight: 800;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.page-hd-right { font-size: 7.5pt; color: var(--muted); }
 
-  /* ── Persona card ── */
-  .persona-card {
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-    margin: 20px 0;
-    page-break-inside: avoid;
-    box-shadow: 0 2px 8px rgba(15,41,66,0.06);
-  }
-  .persona-header {
-    padding: 18px 22px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .persona-avatar {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22pt;
-    flex-shrink: 0;
-  }
-  .persona-info {}
-  .persona-name {
-    font-size: 13pt;
-    font-weight: 800;
-    color: var(--blue-dark);
-    margin-bottom: 2px;
-  }
-  .persona-role {
-    font-size: 9pt;
-    color: var(--text-light);
-  }
-  .persona-body {
-    padding: 0 22px 18px;
-  }
-  .persona-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin-top: 4px;
-  }
-  .persona-block {
-    background: var(--blue-pale);
-    border-radius: 8px;
-    padding: 12px 14px;
-  }
-  .persona-block-title {
-    font-size: 8.5pt;
-    font-weight: 700;
-    color: var(--blue-mid);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-bottom: 8px;
-  }
-  .persona-block ul {
-    list-style: none;
-    padding: 0;
-  }
-  .persona-block li {
-    font-size: 9.5pt;
-    color: var(--text);
-    padding: 3px 0;
-    padding-left: 14px;
-    position: relative;
-  }
-  .persona-block li::before {
-    content: '›';
-    position: absolute;
-    left: 0;
-    color: var(--blue-mid);
-    font-weight: 700;
-  }
-  .persona-psh .persona-header { background: linear-gradient(135deg, #fff8e1, #fdf3e0); }
-  .persona-psh .persona-avatar { background: #fde68a; }
-  .persona-default .persona-header { background: var(--blue-pale); }
-  .persona-default .persona-avatar { background: var(--blue-light); }
+/* ── Sections ───────────────────────────────────────── */
+.section { margin-bottom: 40px; }
+.section-break { page-break-before: always; }
+.no-break { page-break-inside: avoid; }
 
-  /* ── PSH badge ── */
-  .badge-psh {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    background: var(--gold-light);
-    border: 1px solid var(--gold);
-    color: #92400e;
-    font-size: 8pt;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 20px;
-    margin-left: 10px;
-    vertical-align: middle;
-  }
+.sh {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 22px;
+}
+.sh-num {
+  background: var(--navy);
+  color: var(--gold);
+  font-size: 16pt;
+  font-weight: 900;
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px 0 0 5px;
+  flex-shrink: 0;
+  letter-spacing: -1px;
+}
+.sh-text {
+  flex: 1;
+  background: var(--pale);
+  border: 1px solid var(--border);
+  border-left: none;
+  border-radius: 0 5px 5px 0;
+  padding: 9px 16px;
+}
+.sh-title {
+  font-size: 13pt;
+  font-weight: 900;
+  color: var(--navy);
+  line-height: 1.15;
+}
+.sh-desc {
+  font-size: 8pt;
+  color: var(--muted);
+  margin-top: 2px;
+}
 
-  /* ── Callout boxes ── */
-  .callout {
-    border-radius: 10px;
-    padding: 16px 20px;
-    margin: 16px 0;
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-  }
-  .callout-icon { font-size: 16pt; flex-shrink: 0; line-height: 1; margin-top: 2px; }
-  .callout-body {}
-  .callout-title { font-size: 10pt; font-weight: 700; margin-bottom: 4px; }
-  .callout-text { font-size: 9.5pt; line-height: 1.6; }
-  .callout.info { background: var(--blue-pale); border-left: 4px solid var(--blue-mid); }
-  .callout.info .callout-title { color: var(--blue-main); }
-  .callout.warning { background: var(--gold-light); border-left: 4px solid var(--gold); }
-  .callout.warning .callout-title { color: #92400e; }
-  .callout.success { background: var(--success-bg); border-left: 4px solid var(--success); }
-  .callout.success .callout-title { color: var(--success); }
+/* sous-titres */
+h3 {
+  font-size: 10.5pt;
+  font-weight: 800;
+  color: var(--blue);
+  margin: 26px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+h3::before {
+  content: '';
+  display: inline-block;
+  width: 3px; height: 14px;
+  background: var(--gold);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+h4 { font-size: 10pt; font-weight: 700; color: var(--text); margin: 16px 0 7px; }
+p  { margin-bottom: 9px; font-size: 10pt; }
 
-  /* ── Listes ── */
-  ul, ol { padding-left: 22px; margin: 10px 0; }
-  li { margin: 5px 0; font-size: 10.5pt; }
+/* ── Tableaux ───────────────────────────────────────── */
+.tw { margin: 12px 0 20px; overflow-x: auto; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9pt;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--border);
+}
+thead tr { background: var(--navy); }
+thead th {
+  color: white;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+thead th:last-child { border-right: none; }
+tbody td {
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid #e8eff5;
+  vertical-align: top;
+  line-height: 1.5;
+}
+tbody td:last-child { border-right: none; }
+tbody tr:nth-child(even) td { background: var(--lighter); }
+tbody tr:last-child td { border-bottom: none; }
+td strong { color: var(--blue); }
+td code, th code {
+  font-family: 'Courier New', monospace;
+  font-size: 8pt;
+  background: rgba(12,45,79,0.08);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+.ok  { color: var(--green); font-weight: 700; }
+.bad { color: var(--red);   font-weight: 700; }
+.mid { color: var(--amber); font-weight: 700; }
+.win td { background: var(--green-bg) !important; }
+.win td:first-child { font-weight: 700; color: var(--green); }
 
-  /* ── MoSCoW pills ── */
-  .pill {
-    display: inline-block;
-    font-size: 8pt;
-    font-weight: 700;
-    padding: 2px 10px;
-    border-radius: 20px;
-    letter-spacing: 0.3px;
-  }
-  .pill-must { background: #fee2e2; color: #991b1b; }
-  .pill-should { background: #fef3c7; color: #92400e; }
-  .pill-could { background: #d1fae5; color: #065f46; }
-  .pill-wont { background: #f3f4f6; color: #6b7280; }
+/* ── Callouts ───────────────────────────────────────── */
+.cl {
+  border-radius: 5px;
+  padding: 13px 16px;
+  margin: 12px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  page-break-inside: avoid;
+}
+.cl-icon { font-size: 13pt; flex-shrink: 0; margin-top: 1px; }
+.cl-title { font-size: 9.5pt; font-weight: 800; margin-bottom: 3px; }
+.cl-text  { font-size: 9pt; line-height: 1.58; }
+.cl.info    { background: var(--pale);     border-left: 3px solid var(--sky);   }
+.cl.info    .cl-title { color: var(--blue); }
+.cl.warn    { background: var(--amber-bg); border-left: 3px solid var(--gold);  }
+.cl.warn    .cl-title { color: var(--amber); }
+.cl.success { background: var(--green-bg); border-left: 3px solid var(--green); }
+.cl.success .cl-title { color: var(--green); }
+.cl.danger  { background: var(--red-bg);   border-left: 3px solid var(--red);   }
+.cl.danger  .cl-title { color: var(--red); }
 
-  /* ── Séparateur de section ── */
-  .section-break {
-    page-break-before: always;
-    padding-top: 0;
-  }
+/* ── Pills ──────────────────────────────────────────── */
+.pill {
+  display: inline-block;
+  font-size: 7.5pt; font-weight: 700;
+  padding: 2px 9px; border-radius: 20px;
+}
+.pill-must   { background:#fde8e8; color:#7b241c; border:1px solid #e8a09a; }
+.pill-should { background:#fef9e7; color:#875a00; border:1px solid #f0c060; }
+.pill-could  { background:#e9f7ef; color:#196f3d; border:1px solid #7dcea0; }
+.pill-wont   { background:#f2f3f4; color:#626567; border:1px solid #bfc9ca; }
 
-  /* ── Glossaire ── */
-  .glossary-item {
-    display: grid;
-    grid-template-columns: 160px 1fr;
-    gap: 16px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-    align-items: baseline;
-  }
-  .glossary-term {
-    font-weight: 700;
-    color: var(--blue-main);
-    font-size: 9.5pt;
-    font-family: 'Courier New', monospace;
-  }
-  .glossary-def {
-    font-size: 9.5pt;
-    color: var(--text);
-  }
+/* ── Personas ───────────────────────────────────────── */
+.persona {
+  border-radius: 7px;
+  overflow: hidden;
+  margin: 16px 0;
+  page-break-inside: avoid;
+  box-shadow: 0 2px 12px rgba(8,25,46,0.09);
+}
+.persona-std { border-left: 4px solid var(--sky); }
+.persona-psh { border-left: 4px solid var(--gold); }
+.persona-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.persona-std .persona-head { background: linear-gradient(135deg, var(--lighter), #e8f4fb); }
+.persona-psh .persona-head { background: linear-gradient(135deg, #fffef5, var(--gold-lt)); }
+.persona-avatar {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24pt;
+  flex-shrink: 0;
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px var(--border);
+}
+.persona-std .persona-avatar { background: var(--pale); }
+.persona-psh .persona-avatar { background: #fdebd0; box-shadow: 0 0 0 2px rgba(201,147,10,0.3); }
+.persona-name { font-size: 11.5pt; font-weight: 800; color: var(--navy); margin-bottom: 3px; }
+.persona-role { font-size: 8.5pt; color: var(--muted); }
+.persona-body { padding: 0; background: white; }
+.persona-cols { display: grid; grid-template-columns: 1fr 1fr; }
+.persona-col { padding: 13px 16px; }
+.persona-col:first-child { border-right: 1px solid var(--border); }
+.persona-col-title {
+  font-size: 7.5pt; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1.2px; margin-bottom: 9px;
+  padding-bottom: 5px; border-bottom: 2px solid;
+}
+.persona-std .persona-col:first-child .persona-col-title { color: var(--sky);   border-color: var(--sky); }
+.persona-std .persona-col:last-child  .persona-col-title { color: var(--red);   border-color: var(--red); }
+.persona-psh .persona-col:first-child .persona-col-title { color: var(--green); border-color: var(--green); }
+.persona-psh .persona-col:last-child  .persona-col-title { color: var(--red);   border-color: var(--red); }
+.persona-col ul { list-style: none; padding: 0; }
+.persona-col li {
+  font-size: 9.5pt; padding: 5px 0 5px 15px;
+  position: relative; color: var(--text);
+  border-bottom: 1px solid #f0f5f9; line-height: 1.45;
+}
+.persona-col li:last-child { border-bottom: none; }
+.persona-col li::before {
+  content: '›'; position: absolute; left: 0;
+  font-weight: 900; font-size: 11pt; line-height: 1.1;
+}
+.persona-std .persona-col:first-child li::before { color: var(--sky); }
+.persona-std .persona-col:last-child  li::before { color: var(--red); }
+.persona-psh .persona-col:first-child li::before { color: var(--green); }
+.persona-psh .persona-col:last-child  li::before { color: var(--red); }
+.badge-psh {
+  display: inline-flex;
+  background: var(--gold);
+  color: white;
+  font-size: 7pt; font-weight: 800;
+  padding: 2px 8px; border-radius: 20px;
+  margin-left: 8px; vertical-align: middle;
+}
 
-  /* ── Footer de page ── */
-  @page {
-    margin: 0;
-    @bottom-center {
-      content: '';
-    }
-  }
-</style>
-</head>
-<body>
+/* ── User Stories ───────────────────────────────────── */
+.us {
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  overflow: hidden;
+  margin: 14px 0;
+  page-break-inside: avoid;
+  box-shadow: 0 1px 6px rgba(8,25,46,0.06);
+}
+.us-head {
+  background: var(--navy);
+  padding: 9px 15px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.us-id {
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 7.5pt; font-weight: 800;
+  padding: 2px 9px; border-radius: 20px;
+  flex-shrink: 0;
+}
+.us-name { font-size: 10pt; font-weight: 700; color: white; }
+.us-body { padding: 13px 15px; background: white; }
+.us-story {
+  background: var(--pale);
+  border-left: 3px solid var(--sky);
+  padding: 9px 13px;
+  font-size: 9.5pt;
+  line-height: 1.65;
+  margin-bottom: 11px;
+  border-radius: 0 4px 4px 0;
+}
+.us-story em { color: var(--blue); font-style: normal; font-weight: 700; }
 
-<!-- ════════════════════════════════════════════════════
-     PAGE DE COUVERTURE
-════════════════════════════════════════════════════ -->
+/* ── Decision cards ──────────────────────────────────── */
+.dc-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 11px; margin: 12px 0; }
+.dc {
+  border-radius: 7px; padding: 13px;
+  border: 1.5px solid; page-break-inside: avoid;
+}
+.dc.ok { border-color: var(--green); background: var(--green-bg); }
+.dc.no { border-color: #c5cace;      background: #f8f9fa; }
+.dc-badge {
+  font-size: 7.5pt; font-weight: 700; padding: 2px 9px;
+  border-radius: 20px; display: inline-block; margin-bottom: 7px;
+}
+.dc-badge.ok { background: var(--green); color: white; }
+.dc-badge.no { background: #dde1e4;      color: #6b7280; }
+.dc-name { font-size: 10pt; font-weight: 800; color: var(--navy); margin-bottom: 7px; }
+.dc-item { font-size: 8.5pt; margin: 3px 0; line-height: 1.5; }
+.dc-item.pro { color: var(--green); }
+.dc-item.con { color: var(--red); }
+
+/* ── UML ─────────────────────────────────────────────── */
+.uml { margin: 16px 0 28px; page-break-inside: avoid; }
+.uml-lbl {
+  font-size: 7.5pt; font-weight: 800; color: var(--blue);
+  text-transform: uppercase; letter-spacing: 1.2px;
+  margin-bottom: 6px;
+  display: flex; align-items: center; gap: 9px;
+}
+.uml-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.uml-desc { font-size: 8.5pt; color: var(--muted); font-style: italic; margin-bottom: 9px; }
+.uml-frame {
+  background: var(--lighter);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 16px;
+  text-align: center;
+}
+.uml-frame img { max-width: 100%; height: auto; border-radius: 4px; }
+
+/* ── Glossaire ───────────────────────────────────────── */
+.gl {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #edf2f7;
+  align-items: baseline;
+}
+.gl-t {
+  font-family: 'Courier New', monospace;
+  font-size: 9pt; font-weight: 700;
+  color: var(--blue);
+}
+.gl-d { font-size: 9pt; color: var(--text); line-height: 1.5; }
+
+/* ── Pied de page ────────────────────────────────────── */
+.page-ft {
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 28px;
+  font-size: 7.5pt;
+  color: var(--muted);
+}
+
+/* ── Misc ────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin: 8px 0; }
+li { margin: 4px 0; font-size: 9.5pt; line-height: 1.55; }
+code {
+  font-family: 'Courier New', monospace; font-size: 8.5pt;
+  background: rgba(12,45,79,0.07); padding: 1px 5px; border-radius: 3px;
+}
+pre {
+  font-family: 'Courier New', monospace; font-size: 8pt;
+  background: #0b1e30; color: #a8c8e8;
+  padding: 13px 15px; border-radius: 6px;
+  white-space: pre-wrap; word-wrap: break-word;
+  line-height: 1.5; margin: 11px 0;
+}
+strong { color: var(--blue); }
+</style></head><body>
 <div class="cover">
-  <div class="cover-top">
-    <div class="cover-logo">Your Car Your Way</div>
-    <div class="cover-badge">Livrable 1 / 3</div>
+  <div class="cover-geo-1"></div><div class="cover-geo-2"></div>
+  <div class="cover-geo-3"></div><div class="cover-band"></div>
+  <div class="cover-inner">
+    <div class="cover-logo"><div class="cover-logo-dot"></div><div class="cover-logo-text">Your Car Your Way</div></div>
+    <div class="cover-eyebrow">Livrable 1 / 3</div>
     <div class="cover-title">Cahier des<br>charges</div>
-    <div class="cover-subtitle">Application web centralisée — Analyse des besoins<br>et spécifications fonctionnelles</div>
-    <div class="cover-divider"></div>
+    <div class="cover-subtitle">Analyse des besoins · Personas · Spécifications fonctionnelles · RGPD · Accessibilité</div>
+    <div class="cover-rule"></div>
     <div class="cover-meta">
-      <div class="cover-meta-item">
-        <div class="cover-meta-label">Version</div>
-        <div class="cover-meta-value">2.0</div>
-      </div>
-      <div class="cover-meta-item">
-        <div class="cover-meta-label">Date</div>
-        <div class="cover-meta-value">Avril 2026</div>
-      </div>
-      <div class="cover-meta-item">
-        <div class="cover-meta-label">Auteur</div>
-        <div class="cover-meta-value">Architecte logiciel</div>
-      </div>
-      <div class="cover-meta-item">
-        <div class="cover-meta-label">Statut</div>
-        <div class="cover-meta-value">Document consolidé</div>
-      </div>
+      <div class="cover-meta-item"><div class="cover-meta-label">Version</div><div class="cover-meta-value">2.0</div></div>
+      <div class="cover-meta-item"><div class="cover-meta-label">Date</div><div class="cover-meta-value">Mai 2026</div></div>
+      <div class="cover-meta-item"><div class="cover-meta-label">Auteur</div><div class="cover-meta-value">Architecte logiciel</div></div>
+      <div class="cover-meta-item"><div class="cover-meta-label">Statut</div><div class="cover-meta-value">Validé</div></div>
     </div>
   </div>
-  <div class="cover-bottom">
-    <div class="cover-company">Your Car Your Way — Direction Technique</div>
-    <div class="cover-confidential">Confidentiel</div>
+  <div class="cover-footer">
+    <div class="cover-footer-co">Your Car Your Way · Direction Technique · Refonte applicative 2026</div>
+    <div class="cover-footer-conf">Confidentiel</div>
   </div>
 </div>
 
-<!-- ════════════════════════════════════════════════════
-     CONTENU
-════════════════════════════════════════════════════ -->
-<div class="content">
+<!-- SOMMAIRE -->
+<div class="toc-page">
+  <div class="page-hd"><div class="page-hd-left">Cahier des charges — Sommaire</div><div class="page-hd-right">Your Car Your Way · Mai 2026</div></div>
+  <div class="toc-title">Sommaire</div>
+  <div class="toc-sub">Your Car Your Way · Application web centralisée · v2.0</div>
 
-<!-- Avant-propos -->
-<div class="section">
-  <div class="section-header">
-    <div class="section-num">∗</div>
-    <div class="section-titles">
-      <div class="section-title">Avant-propos</div>
-      <div class="section-desc">Objectif et portée du document</div>
-    </div>
-  </div>
-  <p>Ce document constitue le cahier des charges complet de la nouvelle application web centralisée de Your Car Your Way. Il s'appuie sur l'analyse des besoins métier existants, les retours des équipes terrain, et les exigences réglementaires applicables (RGPD, WCAG 2.1 / RGAA 4.1).</p>
-  <div class="callout info">
-    <div class="callout-icon">ℹ</div>
-    <div class="callout-body">
-      <div class="callout-title">Ce document décrit QUOI, pas COMMENT</div>
-      <div class="callout-text">Un cahier des charges décrit les fonctionnalités attendues et les besoins utilisateurs. Les choix techniques (langages, frameworks, base de données) sont traités dans la <strong>Proposition d'architecture</strong>, document séparé.</div>
-    </div>
-  </div>
+  <div class="toc-entry"><div class="toc-num">1</div><div><div class="toc-name">Contexte et enjeux</div><div class="toc-desc">Situation actuelle, problèmes identifiés, vision cible</div></div></div>
+  <div class="toc-entry"><div class="toc-num">2</div><div><div class="toc-name">Objectifs du projet</div><div class="toc-desc">Objectifs fonctionnels et non fonctionnels mesurables</div></div></div>
+  <div class="toc-entry"><div class="toc-num">3</div><div><div class="toc-name">Profils utilisateurs</div><div class="toc-desc">5 personas dont 2 PSH (malvoyante, handicap moteur)</div></div></div>
+  <div class="toc-entry"><div class="toc-num">4</div><div><div class="toc-name">Considérations transverses</div><div class="toc-desc">Accessibilité WCAG 2.1 · RGPD · Internationalisation</div></div></div>
+  <div class="toc-entry"><div class="toc-num">5</div><div><div class="toc-name">Spécifications fonctionnelles</div><div class="toc-desc">12 user stories avec critères d'acceptation</div></div></div>
+  <div class="toc-entry"><div class="toc-num">6</div><div><div class="toc-name">Priorisation MoSCoW</div><div class="toc-desc">Classement Must / Should / Could / Won't</div></div></div>
+  <div class="toc-entry"><div class="toc-num">7</div><div><div class="toc-name">Glossaire</div><div class="toc-desc">Définitions des termes techniques et réglementaires</div></div></div>
 </div>
 
-<!-- Section 1 -->
-<div class="section section-break">
-  <div class="section-header">
-    <div class="section-num">1</div>
-    <div class="section-titles">
-      <div class="section-title">Contexte et enjeux du projet</div>
-      <div class="section-desc">Situation actuelle et motivations du projet</div>
-    </div>
-  </div>
+<!-- S1 -->
+<div class="doc-body section section-break">
+  <div class="page-hd"><div class="page-hd-left">1. Contexte et enjeux</div><div class="page-hd-right">Your Car Your Way · Mai 2026</div></div>
+  <div class="sh"><div class="sh-num">1</div><div class="sh-text"><div class="sh-title">Contexte et enjeux</div><div class="sh-desc">Situation actuelle, problèmes identifiés et vision cible</div></div></div>
 
-  <h3>1.1 Présentation de l'entreprise</h3>
-  <p>Your Car Your Way est une entreprise de <strong>location de voitures</strong> fondée il y a plus de vingt ans, implantée en Europe depuis ses débuts et récemment développée en <strong>Amérique du Nord</strong>. Sa croissance rapide s'est accompagnée du développement d'applications web distinctes par pays — sans vision globale —, générant aujourd'hui une dette technique significative.</p>
+  <h3>1.1 Présentation de Your Car Your Way</h3>
+  <p>Your Car Your Way est une entreprise de <strong>location de voitures</strong> fondée il y a plus de vingt ans, présente en Europe depuis ses débuts et récemment implantée en <strong>Amérique du Nord</strong>. Sa croissance rapide s'est accompagnée du développement d'applications web distinctes par pays, sans vision globale, générant une dette technique significative.</p>
 
-  <h3>1.2 Les trois problèmes majeurs de l'existant</h3>
+  <h3>1.2 Les trois problèmes structurels</h3>
+  <div class="tw"><table>
+    <thead><tr><th width="8%">#</th><th width="30%">Problème</th><th>Impact concret</th></tr></thead>
+    <tbody>
+      <tr><td><strong>P1</strong></td><td><strong>Complexité technique</strong><br><span style="font-size:8pt;color:#5d7a8e">Quatre applications séparées, technologies hétérogènes</span></td><td>Toute évolution développée plusieurs fois. Coûts de maintenance multipliés.</td></tr>
+      <tr><td><strong>P2</strong></td><td><strong>Incohérences fonctionnelles</strong><br><span style="font-size:8pt;color:#5d7a8e">Fonctionnalités différentes selon le pays</span></td><td>Un client européen ne peut pas accéder à ses réservations sur un autre marché.</td></tr>
+      <tr><td><strong>P3</strong></td><td><strong>Risques réglementaires</strong><br><span style="font-size:8pt;color:#5d7a8e">SHA-1 encore utilisé côté France, aucun audit WCAG</span></td><td>Non-conformité RGPD (faille sécurité) et RGAA (exclusion des PSH).</td></tr>
+    </tbody>
+  </table></div>
 
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>#</th><th>Problème</th><th>Impact concret</th></tr></thead>
-      <tbody>
-        <tr><td><strong>P1</strong></td><td><strong>Complexité technique</strong><br>Deux applications séparées (Europe + Amérique du Nord) avec des technologies différentes</td><td>Toute évolution doit être développée deux fois. Les coûts de maintenance doublent.</td></tr>
-        <tr><td><strong>P2</strong></td><td><strong>Incohérences fonctionnelles</strong><br>Les fonctionnalités diffèrent selon le pays</td><td>Un client européen au Canada ne peut pas accéder à ses réservations européennes.</td></tr>
-        <tr><td><strong>P3</strong></td><td><strong>Risques réglementaires</strong><br>Aucun audit d'accessibilité documenté</td><td>Non-conformité RGAA probable → risque juridique et exclusion des PSH.</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h3>1.3 La vision cible</h3>
-  <p>Développer une <strong>application web unique, centralisée, multilingue et accessible</strong>, capable de remplacer progressivement toutes les applications existantes et de servir l'ensemble des marchés européens et nord-américains.</p>
+  <h3>1.3 Vision cible</h3>
+  <p>Concevoir une <strong>application web unique, centralisée, multilingue et accessible</strong> remplaçant progressivement toutes les applications existantes et servant l'ensemble des marchés.</p>
 </div>
 
-<!-- Section 2 -->
-<div class="section section-break">
-  <div class="section-header">
-    <div class="section-num">2</div>
-    <div class="section-titles">
-      <div class="section-title">Objectifs du projet</div>
-      <div class="section-desc">Ce que l'application doit accomplir et avec quelles qualités</div>
-    </div>
-  </div>
+<!-- S2 -->
+<div class="doc-body section section-break">
+  <div class="page-hd"><div class="page-hd-left">2. Objectifs du projet</div><div class="page-hd-right">Your Car Your Way · Mai 2026</div></div>
+  <div class="sh"><div class="sh-num">2</div><div class="sh-text"><div class="sh-title">Objectifs du projet</div><div class="sh-desc">Fonctionnels et non fonctionnels — mesurables et vérifiables</div></div></div>
 
   <h3>2.1 Objectifs fonctionnels</h3>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Réf.</th><th>Objectif</th><th>Pourquoi c'est prioritaire</th></tr></thead>
-      <tbody>
-        <tr><td>OF-1</td><td>Compte unique valable dans tous les pays</td><td>Aujourd'hui impossible — un client crée un compte par marché</td></tr>
-        <tr><td>OF-2</td><td>Recherche et réservation de véhicules en ligne</td><td>Cœur de métier de l'entreprise</td></tr>
-        <tr><td>OF-3</td><td>Tchat en temps réel client ↔ support</td><td>Remplace le support par e-mail (délais 24-48h)</td></tr>
-        <tr><td>OF-4</td><td>Historique complet des réservations</td><td>Fidélisation, simplification des litiges</td></tr>
-        <tr><td>OF-5</td><td>Back-office pour les équipes internes</td><td>Gestion véhicules, agences, utilisateurs</td></tr>
-        <tr><td>OF-6</td><td>Support multilingue et multi-devises</td><td>Cohérence avec la présence internationale</td></tr>
-      </tbody>
-    </table>
+  <div class="tw"><table>
+    <thead><tr><th width="10%">Réf.</th><th>Objectif</th><th width="18%">Priorité</th></tr></thead>
+    <tbody>
+      <tr><td>OF-1</td><td><strong>Compte unique</strong> valable dans tous les pays</td><td><span class="pill pill-must">Must have</span></td></tr>
+      <tr><td>OF-2</td><td><strong>Recherche et réservation</strong> de véhicules en ligne</td><td><span class="pill pill-must">Must have</span></td></tr>
+      <tr><td>OF-3</td><td><strong>Tchat temps réel</strong> client ↔ support (WebSocket)</td><td><span class="pill pill-should">Should have</span></td></tr>
+      <tr><td>OF-4</td><td><strong>Historique</strong> complet des réservations (24 mois)</td><td><span class="pill pill-should">Should have</span></td></tr>
+      <tr><td>OF-5</td><td><strong>Back-office</strong> pour les équipes internes</td><td><span class="pill pill-should">Should have</span></td></tr>
+      <tr><td>OF-6</td><td>Support <strong>multilingue</strong> FR / EN / ES et multi-devises</td><td><span class="pill pill-could">Could have</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>2.2 Exigences non fonctionnelles</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Exigence</th><th>Valeur cible</th><th>Justification</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Performance</strong></td><td>&lt; 2 s (P95)</td><td>Au-delà, 40 % des utilisateurs abandonnent (Google)</td></tr>
+      <tr><td><strong>Disponibilité</strong></td><td>≥ 99,5 % / mois</td><td>Service critique pour voyageurs en déplacement</td></tr>
+      <tr><td><strong>Accessibilité</strong></td><td>WCAG 2.1 niveau AA</td><td>Obligation légale RGAA — risque juridique</td></tr>
+      <tr><td><strong>Protection données</strong></td><td>Conformité RGPD totale</td><td>Amende CNIL jusqu'à 4 % du CA mondial</td></tr>
+      <tr><td><strong>Latence tchat</strong></td><td>&lt; 500 ms</td><td>Expérience de conversation fluide</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="cl warn"><div class="cl-icon">⚠</div><div><div class="cl-title">Hors périmètre — Phase 2</div><div class="cl-text">Paiement en ligne (norme PCI-DSS), application mobile native iOS/Android et migration des données existantes sont traités en phase ultérieure.</div></div></div>
+</div>
+
+<!-- S3 -->
+<div class="doc-body section section-break">
+  <div class="page-hd"><div class="page-hd-left">3. Profils utilisateurs</div><div class="page-hd-right">Your Car Your Way · Mai 2026</div></div>
+  <div class="sh"><div class="sh-num">3</div><div class="sh-text"><div class="sh-title">Profils utilisateurs</div><div class="sh-desc">5 personas — dont 2 personnes en situation de handicap (PSH)</div></div></div>
+
+  <div class="cl info"><div class="cl-icon">ℹ</div><div><div class="cl-title">Qu'est-ce qu'un persona ?</div><div class="cl-text">Profil fictif mais réaliste d'un type d'utilisateur. Il permet de concevoir l'application en se mettant concrètement à la place de chaque profil — pas seulement du "cas standard".</div></div></div>
+
+  <div class="persona persona-std no-break">
+    <div class="persona-head"><div class="persona-avatar">👨‍💼</div><div><div class="persona-name">Marc — Client particulier standard</div><div class="persona-role">38 ans · Cadre commercial · Voyageur fréquent Europe/Canada</div></div></div>
+    <div class="persona-body"><div class="persona-cols">
+      <div class="persona-col"><div class="persona-col-title">Besoins</div><ul>
+        <li>Trouver et réserver un véhicule en 3 clics</li><li>Prix total visible avant confirmation</li>
+        <li>Accès aux réservations depuis n'importe quel pays</li><li>Contacter le support rapidement</li>
+      </ul></div>
+      <div class="persona-col"><div class="persona-col-title">Frustrations actuelles</div><ul>
+        <li>Recréer un compte à chaque marché</li><li>Interface non adaptée au mobile</li>
+        <li>Support par e-mail uniquement (délais 24-48h)</li><li>Pas d'historique cross-marchés</li>
+      </ul></div>
+    </div></div>
   </div>
 
-  <h3>2.2 Objectifs non fonctionnels (qualités du système)</h3>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Réf.</th><th>Exigence</th><th>Valeur cible</th><th>Justification</th></tr></thead>
-      <tbody>
-        <tr><td>ONF-1</td><td>Performance</td><td>&lt; 2 secondes (P95)</td><td>Au-delà, 40 % des utilisateurs abandonnent (source Google)</td></tr>
-        <tr><td>ONF-2</td><td>Disponibilité</td><td>≥ 99,5 % / mois</td><td>Service critique pour les voyageurs en déplacement</td></tr>
-        <tr><td>ONF-3</td><td>Accessibilité</td><td>WCAG 2.1 niveau AA</td><td>Obligation légale (RGAA) — risque juridique si non respecté</td></tr>
-        <tr><td>ONF-4</td><td>Protection des données</td><td>Conformité RGPD</td><td>Amende CNIL jusqu'à 4 % du CA mondial en cas de violation</td></tr>
-        <tr><td>ONF-5</td><td>Latence tchat</td><td>&lt; 500 ms</td><td>Expérience de conversation fluide et naturelle</td></tr>
-        <tr><td>ONF-6</td><td>Langues supportées</td><td>FR, EN, ES (extensible)</td><td>Marchés actuels, architecture ouverte à de nouvelles langues</td></tr>
-      </tbody>
-    </table>
+  <div class="persona persona-psh no-break">
+    <div class="persona-head"><div class="persona-avatar">👩‍💻</div><div><div class="persona-name">Sophie — Cliente malvoyante <span class="badge-psh">♿ PSH</span></div><div class="persona-role">52 ans · Consultante · Lecteur d'écran NVDA · Navigation exclusivement au clavier</div></div></div>
+    <div class="persona-body"><div class="persona-cols">
+      <div class="persona-col"><div class="persona-col-title">Besoins spécifiques</div><ul>
+        <li>Images avec <code>alt</code> descriptif</li><li>Formulaires avec labels explicites</li>
+        <li>Erreurs annoncées via <code>aria-live</code></li><li>Focus clavier toujours visible</li><li>Contraste ≥ 4,5:1</li>
+      </ul></div>
+      <div class="persona-col"><div class="persona-col-title">Blocages actuels</div><ul>
+        <li>Photos sans <code>alt</code> → lecteur dit "image"</li><li>Boutons sans label illisibles</li>
+        <li>Erreurs de formulaires non annoncées</li><li>Tchat inaccessible en temps réel</li>
+      </ul></div>
+    </div></div>
   </div>
 
-  <h3>2.3 Périmètre — Ce qui est exclu de cette version</h3>
-  <div class="callout warning">
-    <div class="callout-icon">⚠</div>
-    <div class="callout-body">
-      <div class="callout-title">Hors périmètre (Phase 2)</div>
-      <div class="callout-text">Le <strong>paiement en ligne</strong> (norme PCI-DSS, intégration Stripe/Adyen), l'<strong>application mobile native</strong> iOS/Android, et la <strong>migration des données existantes</strong> (projet séparé avec plan ETL dédié).</div>
-    </div>
+  <div class="persona persona-psh no-break">
+    <div class="persona-head"><div class="persona-avatar">🧑‍🦽</div><div><div class="persona-name">Julien — Handicap moteur <span class="badge-psh">♿ PSH</span></div><div class="persona-role">29 ans · Développeur · Switch de navigation (1 bouton = Tab)</div></div></div>
+    <div class="persona-body"><div class="persona-cols">
+      <div class="persona-col"><div class="persona-col-title">Besoins spécifiques</div><ul>
+        <li>Ordre de navigation clavier logique</li><li>Formulaires découpés en étapes</li>
+        <li>Avertissement avant expiration de session</li><li>Aucun contenu uniquement au hover</li>
+      </ul></div>
+      <div class="persona-col"><div class="persona-col-title">Blocages actuels</div><ul>
+        <li>Navigation clavier désordonnée</li><li>Menus uniquement au survol souris</li>
+        <li>Session expire sans avertissement</li><li>Formulaires trop longs sans étapes</li>
+      </ul></div>
+    </div></div>
+  </div>
+
+  <div class="persona persona-std no-break">
+    <div class="persona-head"><div class="persona-avatar">🎧</div><div><div class="persona-name">Amina — Agente support client</div><div class="persona-role">31 ans · Conseillère clientèle · 40-60 demandes/jour · 2 écrans</div></div></div>
+    <div class="persona-body"><div class="persona-cols">
+      <div class="persona-col"><div class="persona-col-title">Besoins</div><ul>
+        <li>Accès immédiat à la fiche client</li><li>Gérer 3+ conversations tchat en parallèle</li>
+        <li>Modifier une réservation directement</li><li>Réponses pré-rédigées (FAQ)</li>
+      </ul></div>
+      <div class="persona-col"><div class="persona-col-title">Frustrations</div><ul>
+        <li>Outils non connectés (CRM, web, e-mail)</li><li>Pas de vue réservations en direct</li><li>Aucun tchat intégré</li>
+      </ul></div>
+    </div></div>
+  </div>
+
+  <div class="persona persona-std no-break">
+    <div class="persona-head"><div class="persona-avatar">⚙️</div><div><div class="persona-name">Thomas — Administrateur système</div><div class="persona-role">45 ans · Responsable informatique · Siège social</div></div></div>
+    <div class="persona-body"><div class="persona-cols">
+      <div class="persona-col"><div class="persona-col-title">Besoins</div><ul>
+        <li>Gérer le catalogue véhicules (CRUD)</li><li>Désactiver une agence sans perdre l'historique</li>
+        <li>Créer des comptes agents support</li><li>Consulter les logs d'audit</li>
+      </ul></div>
+      <div class="persona-col"><div class="persona-col-title">Frustrations</div><ul>
+        <li>Modifications à faire dans 4 systèmes différents</li><li>Aucun log centralisé des actions</li><li>Traçabilité RGPD insuffisante</li>
+      </ul></div>
+    </div></div>
   </div>
 </div>
 
-<!-- Section 3 -->
-<div class="section section-break">
-  <div class="section-header">
-    <div class="section-num">3</div>
-    <div class="section-titles">
-      <div class="section-title">Profils utilisateurs</div>
-      <div class="section-desc">Personas représentant chaque type d'utilisateur du système</div>
-    </div>
-  </div>
-
-  <div class="callout info">
-    <div class="callout-icon">ℹ</div>
-    <div class="callout-body">
-      <div class="callout-title">Qu'est-ce qu'un persona ?</div>
-      <div class="callout-text">Un persona est un profil fictif mais réaliste d'un type d'utilisateur. Il permet de concevoir l'application en se mettant à la place de chaque profil plutôt que de ne penser qu'au "cas standard".</div>
-    </div>
-  </div>
-
-  <!-- Persona 1 -->
-  <div class="persona-card persona-default">
-    <div class="persona-header">
-      <div class="persona-avatar">👨‍💼</div>
-      <div class="persona-info">
-        <div class="persona-name">Marc — Le client particulier standard</div>
-        <div class="persona-role">38 ans · Cadre commercial · Voyageur fréquent</div>
-      </div>
-    </div>
-    <div class="persona-body">
-      <div class="persona-grid">
-        <div class="persona-block">
-          <div class="persona-block-title">Ses besoins</div>
-          <ul>
-            <li>Trouver et réserver un véhicule rapidement</li>
-            <li>Voir le prix total avant confirmation</li>
-            <li>Accéder à ses réservations depuis n'importe quel pays</li>
-            <li>Contacter le support rapidement si problème</li>
-          </ul>
-        </div>
-        <div class="persona-block">
-          <div class="persona-block-title">Ce qui le frustre aujourd'hui</div>
-          <ul>
-            <li>Recréer un compte à chaque nouveau marché</li>
-            <li>Interface non adaptée au mobile</li>
-            <li>Support uniquement par e-mail (délais 24-48h)</li>
-            <li>Pas d'historique cross-marchés</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Persona 2 - PSH -->
-  <div class="persona-card persona-psh">
-    <div class="persona-header">
-      <div class="persona-avatar">👩‍💻</div>
-      <div class="persona-info">
-        <div class="persona-name">Sophie — Cliente malvoyante <span class="badge-psh">♿ PSH</span></div>
-        <div class="persona-role">52 ans · Consultante · Utilise le lecteur d'écran NVDA · Navigation exclusivement au clavier</div>
-      </div>
-    </div>
-    <div class="persona-body">
-      <div class="persona-grid">
-        <div class="persona-block">
-          <div class="persona-block-title">Ses besoins spécifiques</div>
-          <ul>
-            <li>Images avec attribut <code>alt</code> descriptif</li>
-            <li>Formulaires avec labels explicites</li>
-            <li>Messages d'erreur annoncés automatiquement</li>
-            <li>Tchat avec <code>aria-live</code> pour les nouveaux messages</li>
-            <li>Focus clavier toujours visible</li>
-          </ul>
-        </div>
-        <div class="persona-block">
-          <div class="persona-block-title">Ce qui la bloque aujourd'hui</div>
-          <ul>
-            <li>Photos de véhicules sans <code>alt</code> → "image" dit le lecteur</li>
-            <li>Boutons sans label textuel illisibles</li>
-            <li>Erreurs de formulaires non annoncées</li>
-            <li>Tchat inaccessible en temps réel</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Persona 3 - PSH moteur -->
-  <div class="persona-card persona-psh">
-    <div class="persona-header">
-      <div class="persona-avatar">🧑‍🦽</div>
-      <div class="persona-info">
-        <div class="persona-name">Julien — Client avec handicap moteur <span class="badge-psh">♿ PSH</span></div>
-        <div class="persona-role">29 ans · Développeur web · Utilise un switch de navigation (bouton unique = touche Tab)</div>
-      </div>
-    </div>
-    <div class="persona-body">
-      <div class="persona-grid">
-        <div class="persona-block">
-          <div class="persona-block-title">Ses besoins spécifiques</div>
-          <ul>
-            <li>Ordre de navigation au clavier logique</li>
-            <li>Formulaires découpés en étapes courtes</li>
-            <li>Session avec avertissement avant expiration</li>
-            <li>Aucun contenu accessible uniquement au survol</li>
-          </ul>
-        </div>
-        <div class="persona-block">
-          <div class="persona-block-title">Ce qui le bloque</div>
-          <ul>
-            <li>Navigation au clavier désordonnée</li>
-            <li>Menus déroulants uniquement au hover</li>
-            <li>Expiration de session sans avertissement</li>
-            <li>Longs formulaires sans étapes</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Persona 4 - Agent -->
-  <div class="persona-card persona-default">
-    <div class="persona-header">
-      <div class="persona-avatar">🎧</div>
-      <div class="persona-info">
-        <div class="persona-name">Amina — Agente support client</div>
-        <div class="persona-role">31 ans · Conseillère clientèle · 40 à 60 demandes/jour · 2 écrans</div>
-      </div>
-    </div>
-    <div class="persona-body">
-      <div class="persona-grid">
-        <div class="persona-block">
-          <div class="persona-block-title">Ses besoins</div>
-          <ul>
-            <li>Accès immédiat à la fiche client</li>
-            <li>Gérer 3+ conversations de tchat en parallèle</li>
-            <li>Modifier une réservation directement</li>
-            <li>Réponses pré-rédigées (FAQ rapide)</li>
-          </ul>
-        </div>
-        <div class="persona-block">
-          <div class="persona-block-title">Ce qui la frustre</div>
-          <ul>
-            <li>Outils non connectés (CRM, web, email)</li>
-            <li>Impossible de voir les réservations en live</li>
-            <li>Support uniquement par e-mail</li>
-            <li>Aucun tchat intégré</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Persona 5 - Admin -->
-  <div class="persona-card persona-default">
-    <div class="persona-header">
-      <div class="persona-avatar">⚙️</div>
-      <div class="persona-info">
-        <div class="persona-name">Thomas — Administrateur système</div>
-        <div class="persona-role">45 ans · Responsable informatique · Siège social</div>
-      </div>
-    </div>
-    <div class="persona-body">
-      <div class="persona-grid">
-        <div class="persona-block">
-          <div class="persona-block-title">Ses besoins</div>
-          <ul>
-            <li>Gérer le catalogue véhicules (CRUD)</li>
-            <li>Désactiver une agence sans perdre l'historique</li>
-            <li>Créer des comptes agents support</li>
-            <li>Consulter les logs d'audit</li>
-          </ul>
-        </div>
-        <div class="persona-block">
-          <div class="persona-block-title">Ce qui le frustre</div>
-          <ul>
-            <li>Modifications à faire dans deux systèmes</li>
-            <li>Aucun log centralisé des actions</li>
-            <li>Pas de traçabilité RGPD</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Section 4 -->
-<div class="section section-break">
-  <div class="section-header">
-    <div class="section-num">4</div>
-    <div class="section-titles">
-      <div class="section-title">Considérations transverses</div>
-      <div class="section-desc">Exigences qui s'appliquent à l'ensemble du système</div>
-    </div>
-  </div>
+<!-- S4 -->
+<div class="doc-body section section-break">
+  <div class="page-hd"><div class="page-hd-left">4. Considérations transverses</div><div class="page-hd-right">Your Car Your Way · Mai 2026</div></div>
+  <div class="sh"><div class="sh-num">4</div><div class="sh-text"><div class="sh-title">Considérations transverses</div><div class="sh-desc">Exigences s'appliquant à l'ensemble du système</div></div></div>
 
   <h3>4.1 Accessibilité — WCAG 2.1 / RGAA 4.1</h3>
-  <div class="callout warning">
-    <div class="callout-icon">⚖</div>
-    <div class="callout-body">
-      <div class="callout-title">Obligation légale</div>
-      <div class="callout-text">La loi du 11 février 2005 et la directive européenne 2016/2102 imposent l'accessibilité numérique. Le non-respect expose l'entreprise à des sanctions. 15 % de la population mondiale vit avec un handicap (OMS) — l'exclusion de ces utilisateurs représente aussi un manque à gagner commercial.</div>
-    </div>
-  </div>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Principe POUR</th><th>Signification</th><th>Exigence concrète</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Perceptible</strong></td><td>L'information doit être perçue par tous</td><td>Images avec <code>alt</code>, contrastes ≥ 4,5:1, sous-titres médias</td></tr>
-        <tr><td><strong>Utilisable</strong></td><td>Les composants sont utilisables par tous</td><td>Navigation clavier complète, focus visible, pas de piège au clavier</td></tr>
-        <tr><td><strong>Compréhensible</strong></td><td>Contenu et interface compréhensibles</td><td>Labels sur formulaires, erreurs explicites, langue déclarée</td></tr>
-        <tr><td><strong>Robuste</strong></td><td>Compatible avec les technologies d'assistance</td><td>HTML sémantique, ARIA correct, <code>aria-live</code> sur le tchat</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <div class="cl warn"><div class="cl-icon">⚖</div><div><div class="cl-title">Obligation légale</div><div class="cl-text">La loi du 11 février 2005 et la directive 2016/2102 imposent l'accessibilité numérique. 15 % de la population mondiale vit avec un handicap (OMS). Non-conformité = risque juridique + exclusion commerciale.</div></div></div>
+  <div class="tw"><table>
+    <thead><tr><th>Principe POUR</th><th>Exigence concrète dans l'application</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Perceptible</strong></td><td>Images avec <code>alt</code> descriptif · contraste ≥ 4,5:1 · sous-titres pour tous les médias</td></tr>
+      <tr><td><strong>Utilisable</strong></td><td>Navigation clavier complète · focus visible · aucun piège au clavier · pas de délai obligatoire</td></tr>
+      <tr><td><strong>Compréhensible</strong></td><td>Labels sur tous les champs · messages d'erreur explicites · langue déclarée (<code>lang="fr"</code>)</td></tr>
+      <tr><td><strong>Robuste</strong></td><td>HTML sémantique · ARIA correct · <code>aria-live="polite"</code> sur le tchat · <code>role="log"</code></td></tr>
+    </tbody>
+  </table></div>
 
-  <h3>4.2 Sécurité et RGPD</h3>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Droit RGPD</th><th>Implémentation dans l'application</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Droit d'accès</strong></td><td>Export JSON de toutes les données du compte, disponible dans le profil</td></tr>
-        <tr><td><strong>Droit de rectification</strong></td><td>Modification du profil à tout moment</td></tr>
-        <tr><td><strong>Droit à l'effacement</strong></td><td>Anonymisation sous 30 jours (messages conservés, auteur mis à NULL)</td></tr>
-        <tr><td><strong>Droit à la portabilité</strong></td><td>Export JSON/CSV des données</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="callout info">
-    <div class="callout-icon">💡</div>
-    <div class="callout-body">
-      <div class="callout-title">Pourquoi "anonymisation" et pas "suppression" des messages ?</div>
-      <div class="callout-text">L'historique d'une conversation est nécessaire pour traiter les litiges. Quand un client supprime son compte, le contenu des messages est conservé, mais l'auteur devient "Utilisateur supprimé" (champ <code>author</code> mis à NULL en base de données).</div>
-    </div>
-  </div>
+  <h3>4.2 Protection des données — RGPD</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Droit utilisateur</th><th>Implémentation dans l'application</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Droit d'accès</strong></td><td>Export JSON de toutes les données depuis le profil</td></tr>
+      <tr><td><strong>Droit de rectification</strong></td><td>Modification du profil à tout moment</td></tr>
+      <tr><td><strong>Droit à l'effacement</strong></td><td>Anonymisation sous 30 j — <code>author = NULL</code> dans les messages (<code>SET_NULL</code>)</td></tr>
+      <tr><td><strong>Droit à la portabilité</strong></td><td>Export JSON/CSV des données personnelles</td></tr>
+    </tbody>
+  </table></div>
 
   <h3>4.3 Internationalisation (i18n)</h3>
-  <p>Tous les textes de l'interface sont externalisés dans des <strong>fichiers de traduction</strong> (format <code>.po</code>). La langue est détectée automatiquement depuis le navigateur et modifiable dans le profil. Les formats de dates, monnaies et nombres s'adaptent selon les conventions locales.</p>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Élément</th><th>France (FR)</th><th>États-Unis (EN)</th></tr></thead>
-      <tbody>
-        <tr><td>Date</td><td>25/04/2026</td><td>04/25/2026</td></tr>
-        <tr><td>Monnaie</td><td>1 250,00 €</td><td>$1,250.00</td></tr>
-        <tr><td>Nombre</td><td>1 234,56</td><td>1,234.56</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <p>Tous les textes externalisés dans des <strong>fichiers de traduction</strong> (<code>.po</code>). Langue détectée automatiquement depuis le navigateur, modifiable dans le profil. Formats de dates, monnaies et nombres adaptés selon les conventions locales.</p>
 </div>
 
-<!-- Section 5 -->
-<div class="section section-break">
-  <div class="section-header">
-    <div class="section-num">5</div>
-    <div class="section-titles">
-      <div class="section-title">Spécifications fonctionnelles</div>
-      <div class="section-desc">User stories avec critères d'acceptation — Module par module</div>
-    </div>
-  </div>
+<!-- S5 -->
+<div class="doc-body section section-break">
+  <div class="page-hd"><div class="page-hd-left">5. Spécifications fonctionnelles</div><div class="page-hd-right">Your Car Your Way · Mai 2026</div></div>
+  <div class="sh"><div class="sh-num">5</div><div class="sh-text"><div class="sh-title">Spécifications fonctionnelles</div><div class="sh-desc">12 user stories avec critères d'acceptation — 4 modules</div></div></div>
 
-  <div class="callout info">
-    <div class="callout-icon">📖</div>
-    <div class="callout-body">
-      <div class="callout-title">Comment lire une user story</div>
-      <div class="callout-text">Format : <em>En tant que [profil], je veux [action], afin de [bénéfice].</em><br>Les <strong>critères d'acceptation</strong> (CA) sont les conditions précises de validation. Ils servent de base aux tests.</div>
-    </div>
-  </div>
+  <div class="cl info"><div class="cl-icon">📖</div><div><div class="cl-title">Format d'une user story</div><div class="cl-text"><em>En tant que [profil], je veux [action], afin de [bénéfice].</em><br>Les <strong>critères d'acceptation</strong> (CA) définissent quand la fonctionnalité est "terminée" — ils servent de base aux tests.</div></div></div>
 
   <h3>Module 1 — Comptes et authentification</h3>
 
-  <div class="us-card">
-    <div class="us-header">
-      <span class="us-id">US-01</span>
-      <span class="us-name">Créer un compte client</span>
-    </div>
+  <div class="us no-break">
+    <div class="us-head"><span class="us-id">US-01</span><span class="us-name">Créer un compte client</span></div>
     <div class="us-body">
-      <div class="us-story"><em>En tant que</em> visiteur non connecté, <em>je veux</em> créer un compte personnel, <em>afin de</em> pouvoir réserver des véhicules et bénéficier d'un suivi personnalisé.</div>
-      <div class="us-why">💡 Aujourd'hui, un client doit créer un compte par pays. Un compte unique centralisé est la pierre angulaire de toute l'unification.</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>#</th><th>Critère d'acceptation</th></tr></thead>
-        <tbody>
-          <tr><td>CA-01-1</td><td>Champs obligatoires : prénom, nom, e-mail, mot de passe, pays de résidence, langue préférée</td></tr>
-          <tr><td>CA-01-2</td><td>E-mail de confirmation envoyé. Le compte reste inactif jusqu'à validation du lien (valable 24h)</td></tr>
-          <tr><td>CA-01-3</td><td>Mot de passe : minimum 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre</td></tr>
-          <tr><td>CA-01-4</td><td>Si e-mail déjà utilisé : message clair "Adresse déjà associée à un compte"</td></tr>
-          <tr><td>CA-01-5</td><td>Formulaire navigable au clavier, chaque champ a un <code>&lt;label&gt;</code>, erreurs annoncées par lecteur d'écran</td></tr>
-          <tr><td>CA-01-6</td><td>Case à cocher non pré-cochée pour accepter la politique de confidentialité (RGPD)</td></tr>
-        </tbody>
-      </table></div>
+      <div class="us-story"><em>En tant que</em> visiteur, <em>je veux</em> créer un compte personnel, <em>afin de</em> réserver des véhicules et bénéficier d'un suivi personnalisé.</div>
+      <div class="tw"><table><thead><tr><th width="12%">#</th><th>Critère d'acceptation</th></tr></thead><tbody>
+        <tr><td>CA-01-1</td><td>Champs : prénom, nom, e-mail, mot de passe, pays de résidence, langue préférée</td></tr>
+        <tr><td>CA-01-2</td><td>E-mail de confirmation — compte inactif jusqu'à validation du lien (valable 24h)</td></tr>
+        <tr><td>CA-01-3</td><td>Mot de passe : minimum 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre</td></tr>
+        <tr><td>CA-01-4</td><td>E-mail déjà utilisé : message clair "Adresse déjà associée à un compte"</td></tr>
+        <tr><td>CA-01-5</td><td>Formulaire navigable au clavier · <code>&lt;label&gt;</code> sur chaque champ · erreurs annoncées par lecteur d'écran</td></tr>
+        <tr><td>CA-01-6</td><td>Case non pré-cochée pour accepter la politique de confidentialité (RGPD)</td></tr>
+      </tbody></table></div>
     </div>
   </div>
 
-  <div class="us-card">
-    <div class="us-header">
-      <span class="us-id">US-02</span>
-      <span class="us-name">Se connecter à son compte</span>
-    </div>
+  <div class="us no-break">
+    <div class="us-head"><span class="us-id">US-02</span><span class="us-name">Se connecter</span></div>
     <div class="us-body">
-      <div class="us-story"><em>En tant que</em> client inscrit, <em>je veux</em> me connecter avec mon e-mail et mon mot de passe, <em>afin d'</em> accéder à mon espace personnel.</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>#</th><th>Critère d'acceptation</th></tr></thead>
-        <tbody>
-          <tr><td>CA-02-1</td><td>Connexion réussie → redirection vers le tableau de bord personnel</td></tr>
-          <tr><td>CA-02-2</td><td>Message d'erreur générique : "E-mail ou mot de passe incorrect" (sécurité : pas de précision)</td></tr>
-          <tr><td>CA-02-3</td><td>Blocage temporaire 15 min après 5 tentatives échouées</td></tr>
-          <tr><td>CA-02-4</td><td>Lien "Mot de passe oublié" → envoi d'un e-mail de réinitialisation valable 1 heure</td></tr>
-          <tr><td>CA-02-5</td><td>Session expire après 30 min d'inactivité, avec avertissement 5 min avant</td></tr>
-        </tbody>
-      </table></div>
+      <div class="us-story"><em>En tant que</em> client inscrit, <em>je veux</em> me connecter avec mon e-mail et mot de passe, <em>afin d'</em> accéder à mon espace personnel.</div>
+      <div class="tw"><table><thead><tr><th width="12%">#</th><th>Critère d'acceptation</th></tr></thead><tbody>
+        <tr><td>CA-02-1</td><td>Connexion réussie → redirection vers le tableau de bord</td></tr>
+        <tr><td>CA-02-2</td><td>Erreur générique : "E-mail ou mot de passe incorrect" (pas de précision — sécurité)</td></tr>
+        <tr><td>CA-02-3</td><td>Blocage 15 min après 5 tentatives échouées (protection brute force)</td></tr>
+        <tr><td>CA-02-4</td><td>Lien "Mot de passe oublié" → e-mail de réinitialisation valable 1h</td></tr>
+        <tr><td>CA-02-5</td><td>Session expire après 30 min d'inactivité avec avertissement 5 min avant</td></tr>
+      </tbody></table></div>
     </div>
   </div>
 
-  <div class="us-card">
-    <div class="us-header">
-      <span class="us-id">US-03</span>
-      <span class="us-name">Gérer son profil et exercer ses droits RGPD</span>
-    </div>
+  <div class="us no-break">
+    <div class="us-head"><span class="us-id">US-03</span><span class="us-name">Gérer son profil et exercer ses droits RGPD</span></div>
     <div class="us-body">
-      <div class="us-story"><em>En tant que</em> client connecté, <em>je veux</em> consulter et modifier mes informations personnelles, <em>afin de</em> maintenir mes données à jour et exercer mes droits.</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>#</th><th>Critère d'acceptation</th></tr></thead>
-        <tbody>
-          <tr><td>CA-03-1</td><td>Champs modifiables : prénom, nom, téléphone, adresse, langue, pays</td></tr>
-          <tr><td>CA-03-2</td><td>Changement d'e-mail : confirmation par lien envoyé à la nouvelle adresse</td></tr>
-          <tr><td>CA-03-3</td><td>Bouton "Télécharger mes données" → fichier JSON (droit à la portabilité RGPD)</td></tr>
-          <tr><td>CA-03-4</td><td>Bouton "Supprimer mon compte" avec confirmation + anonymisation sous 30 jours</td></tr>
-        </tbody>
-      </table></div>
+      <div class="us-story"><em>En tant que</em> client connecté, <em>je veux</em> modifier mes informations et exercer mes droits, <em>afin de</em> maintenir mes données à jour.</div>
+      <div class="tw"><table><thead><tr><th width="12%">#</th><th>Critère d'acceptation</th></tr></thead><tbody>
+        <tr><td>CA-03-1</td><td>Champs modifiables : prénom, nom, téléphone, adresse, langue, pays</td></tr>
+        <tr><td>CA-03-2</td><td>Changement d'e-mail : confirmation par lien envoyé à la nouvelle adresse</td></tr>
+        <tr><td>CA-03-3</td><td>"Télécharger mes données" → fichier JSON (droit à la portabilité)</td></tr>
+        <tr><td>CA-03-4</td><td>"Supprimer mon compte" + confirmation + anonymisation sous 30 jours</td></tr>
+      </tbody></table></div>
     </div>
   </div>
 
   <h3>Module 2 — Recherche et réservation</h3>
 
-  <div class="us-card">
-    <div class="us-header">
-      <span class="us-id">US-04</span>
-      <span class="us-name">Rechercher un véhicule disponible</span>
-    </div>
+  <div class="us no-break">
+    <div class="us-head"><span class="us-id">US-04</span><span class="us-name">Rechercher un véhicule</span></div>
     <div class="us-body">
-      <div class="us-story"><em>En tant que</em> visiteur ou client connecté, <em>je veux</em> rechercher un véhicule disponible selon mes critères, <em>afin de</em> trouver rapidement une offre adaptée.</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>#</th><th>Critère d'acceptation</th></tr></thead>
-        <tbody>
-          <tr><td>CA-04-1</td><td>Critères : lieu de prise en charge, lieu de restitution (optionnel), dates, catégorie</td></tr>
-          <tr><td>CA-04-2</td><td>Résultats : photo, marque/modèle, catégorie, places, transmission, carburant, prix/jour</td></tr>
-          <tr><td>CA-04-3</td><td>Filtres de tri : prix croissant, décroissant, pertinence</td></tr>
-          <tr><td>CA-04-4</td><td>Chaque photo a un <code>alt</code> descriptif : "Renault Clio 2024, 5 places, manuelle, 45€/jour"</td></tr>
-          <tr><td>CA-04-5</td><td>Résultats affichés en moins de 2 secondes</td></tr>
-          <tr><td>CA-04-6</td><td>Si aucun résultat : message clair et suggestion d'élargir les critères</td></tr>
-        </tbody>
-      </table></div>
+      <div class="us-story"><em>En tant que</em> visiteur ou client, <em>je veux</em> rechercher un véhicule disponible selon mes critères, <em>afin de</em> trouver rapidement une offre adaptée.</div>
+      <div class="tw"><table><thead><tr><th width="12%">#</th><th>Critère d'acceptation</th></tr></thead><tbody>
+        <tr><td>CA-04-1</td><td>Critères : lieu départ, lieu retour (opt.), dates, catégorie de véhicule</td></tr>
+        <tr><td>CA-04-2</td><td>Résultats : photo, marque/modèle, catégorie, places, transmission, carburant, prix/jour</td></tr>
+        <tr><td>CA-04-3</td><td>Tri : prix croissant / décroissant / pertinence</td></tr>
+        <tr><td>CA-04-4</td><td>Chaque photo : <code>alt</code> descriptif (ex : "Renault Clio 2024, 5 places, manuelle, 45€/jour")</td></tr>
+        <tr><td>CA-04-5</td><td>Résultats affichés en moins de 2 secondes</td></tr>
+      </tbody></table></div>
     </div>
   </div>
 
-  <div class="us-card">
-    <div class="us-header">
-      <span class="us-id">US-05</span>
-      <span class="us-name">Réserver un véhicule</span>
-    </div>
+  <div class="us no-break">
+    <div class="us-head"><span class="us-id">US-05</span><span class="us-name">Réserver un véhicule</span></div>
     <div class="us-body">
-      <div class="us-story"><em>En tant que</em> client connecté, <em>je veux</em> réserver un véhicule sélectionné pour des dates précises, <em>afin de</em> garantir sa disponibilité lors de mon déplacement.</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>#</th><th>Critère d'acceptation</th></tr></thead>
-        <tbody>
-          <tr><td>CA-05-1</td><td>Récapitulatif : véhicule, agences départ/retour, dates, durée, options, prix total TTC</td></tr>
-          <tr><td>CA-05-2</td><td>Bouton "Confirmer la réservation" explicite, confirmation en 2 étapes</td></tr>
-          <tr><td>CA-05-3</td><td>E-mail de confirmation immédiat avec numéro de réservation et coordonnées agence</td></tr>
-          <tr><td>CA-05-4</td><td>Si véhicule pris entre-temps : message d'erreur clair + alternatives proposées</td></tr>
-          <tr><td>CA-05-5</td><td>Processus entièrement navigable au clavier</td></tr>
-        </tbody>
-      </table></div>
+      <div class="us-story"><em>En tant que</em> client connecté, <em>je veux</em> réserver un véhicule sélectionné, <em>afin de</em> garantir sa disponibilité lors de mon déplacement.</div>
+      <div class="tw"><table><thead><tr><th width="12%">#</th><th>Critère d'acceptation</th></tr></thead><tbody>
+        <tr><td>CA-05-1</td><td>Récapitulatif : véhicule, agences départ/retour, dates, durée, options, prix total TTC</td></tr>
+        <tr><td>CA-05-2</td><td>Bouton "Confirmer la réservation" explicit + confirmation en 2 étapes</td></tr>
+        <tr><td>CA-05-3</td><td>E-mail de confirmation immédiat avec numéro de réservation</td></tr>
+        <tr><td>CA-05-4</td><td>Si véhicule pris entre-temps : message d'erreur clair + alternatives proposées</td></tr>
+        <tr><td>CA-05-5</td><td>Processus entièrement navigable au clavier</td></tr>
+      </tbody></table></div>
     </div>
   </div>
 
-  <div class="us-card">
-    <div class="us-header">
-      <span class="us-id">US-06</span>
-      <span class="us-name">Consulter et gérer ses réservations</span>
-    </div>
+  <div class="us no-break">
+    <div class="us-head"><span class="us-id">US-06</span><span class="us-name">Consulter et gérer ses réservations</span></div>
     <div class="us-body">
-      <div class="us-story"><em>En tant que</em> client connecté, <em>je veux</em> voir toutes mes réservations passées et à venir, <em>afin de</em> les gérer et préparer mes déplacements.</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>#</th><th>Critère d'acceptation</th></tr></thead>
-        <tbody>
-          <tr><td>CA-06-1</td><td>Statuts avec code couleur : À venir, En cours, Terminée, Annulée</td></tr>
-          <tr><td>CA-06-2</td><td>Annulation possible si départ à plus de 48h. Sinon : message d'information + contact support</td></tr>
-          <tr><td>CA-06-3</td><td>Bouton "Télécharger le contrat PDF" pour chaque réservation confirmée</td></tr>
-          <tr><td>CA-06-4</td><td>Historique remontant sur 24 mois minimum</td></tr>
-        </tbody>
-      </table></div>
+      <div class="us-story"><em>En tant que</em> client connecté, <em>je veux</em> voir toutes mes réservations, <em>afin de</em> les gérer et préparer mes déplacements.</div>
+      <div class="tw"><table><thead><tr><th width="12%">#</th><th>Critère d'acceptation</th></tr></thead><tbody>
+        <tr><td>CA-06-1</td><td>Statuts avec code couleur : À venir, En cours, Terminée, Annulée</td></tr>
+        <tr><td>CA-06-2</td><td>Annulation possible si départ &gt; 48h — sinon message + contact support</td></tr>
+        <tr><td>CA-06-3</td><td>"Télécharger le contrat PDF" pour chaque réservation confirmée</td></tr>
+        <tr><td>CA-06-4</td><td>Historique sur 24 mois minimum</td></tr>
+      </tbody></table></div>
     </div>
   </div>
 
-  <h3>Module 3 — Tchat en temps réel</h3>
+  <h3>Module 3 — Tchat temps réel</h3>
+  <div class="cl info"><div class="cl-icon">⚡</div><div><div class="cl-title">Le tchat temps réel — différenciateur clé</div><div class="cl-text">Avec le support par e-mail, le client attend 24 à 48h. Avec le WebSocket, le message apparaît instantanément chez l'agent — comme WhatsApp ou Teams.</div></div></div>
 
-  <div class="callout info">
-    <div class="callout-icon">⚡</div>
-    <div class="callout-body">
-      <div class="callout-title">Qu'est-ce que le "temps réel" ?</div>
-      <div class="callout-text">Avec le support par e-mail, le client attend 24 à 48 heures. Avec le tchat en temps réel (WebSocket), le message apparaît instantanément chez l'agent — comme WhatsApp ou Teams. C'est le différenciateur clé de ce projet.</div>
+  <div class="us no-break">
+    <div class="us-head"><span class="us-id">US-07</span><span class="us-name">Démarrer une conversation de tchat</span></div>
+    <div class="us-body">
+      <div class="us-story"><em>En tant que</em> client connecté, <em>je veux</em> ouvrir une conversation de tchat, <em>afin d'</em> obtenir une réponse rapide sans attendre par e-mail.</div>
+      <div class="tw"><table><thead><tr><th width="12%">#</th><th>Critère d'acceptation</th></tr></thead><tbody>
+        <tr><td>CA-07-1</td><td>Bouton "Contacter le support" visible sur toutes les pages</td></tr>
+        <tr><td>CA-07-2</td><td>Connexion au tchat établie en moins de 3 secondes</td></tr>
+        <tr><td>CA-07-3</td><td>Historique de la conversation restauré à la reconnexion</td></tr>
+        <tr><td>CA-07-4</td><td>Message automatique : délai de réponse estimé + horaires du support</td></tr>
+        <tr><td>CA-07-5</td><td>Zone tchat : <code>role="log"</code> + <code>aria-live="polite"</code> pour lecteurs d'écran</td></tr>
+      </tbody></table></div>
     </div>
   </div>
 
-  <div class="us-card">
-    <div class="us-header">
-      <span class="us-id">US-07</span>
-      <span class="us-name">Démarrer une conversation de tchat</span>
-    </div>
+  <div class="us no-break">
+    <div class="us-head"><span class="us-id">US-08</span><span class="us-name">Envoyer et recevoir des messages en temps réel</span></div>
     <div class="us-body">
-      <div class="us-story"><em>En tant que</em> client connecté, <em>je veux</em> ouvrir une conversation de tchat avec le support, <em>afin d'</em> obtenir une réponse rapide sans attendre par e-mail.</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>#</th><th>Critère d'acceptation</th></tr></thead>
-        <tbody>
-          <tr><td>CA-07-1</td><td>Bouton "Contacter le support" visible sur toutes les pages</td></tr>
-          <tr><td>CA-07-2</td><td>Connexion au tchat établie en moins de 3 secondes</td></tr>
-          <tr><td>CA-07-3</td><td>À la reconnexion, le client retrouve l'historique de sa conversation</td></tr>
-          <tr><td>CA-07-4</td><td>Message automatique indiquant le délai de réponse estimé et les horaires du support</td></tr>
-          <tr><td>CA-07-5</td><td>Zone tchat avec <code>role="log"</code> et <code>aria-live="polite"</code> pour les lecteurs d'écran</td></tr>
-        </tbody>
-      </table></div>
-    </div>
-  </div>
-
-  <div class="us-card">
-    <div class="us-header">
-      <span class="us-id">US-08</span>
-      <span class="us-name">Envoyer et recevoir des messages en temps réel</span>
-    </div>
-    <div class="us-body">
-      <div class="us-story"><em>En tant que</em> client ou agent, <em>je veux</em> envoyer des messages qui apparaissent instantanément, <em>afin de</em> mener une conversation fluide.</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>#</th><th>Critère d'acceptation</th></tr></thead>
-        <tbody>
-          <tr><td>CA-08-1</td><td>Message visible chez le destinataire en moins de 500 millisecondes</td></tr>
-          <tr><td>CA-08-2</td><td>Horodatage affiché sur chaque message (format HH:MM)</td></tr>
-          <tr><td>CA-08-3</td><td>Indicateur "Lu" affiché quand le message a été vu</td></tr>
-          <tr><td>CA-08-4</td><td>Limite de 2 000 caractères par message avec compteur affiché</td></tr>
-          <tr><td>CA-08-5</td><td>Si connexion perdue : avertissement + tentative de reconnexion automatique toutes les 5 secondes</td></tr>
-          <tr><td>CA-08-6</td><td>Messages échappés avant affichage (protection XSS)</td></tr>
-        </tbody>
-      </table></div>
-    </div>
-  </div>
-
-  <div class="us-card">
-    <div class="us-header">
-      <span class="us-id">US-09</span>
-      <span class="us-name">Gérer plusieurs conversations simultanées (agent)</span>
-    </div>
-    <div class="us-body">
-      <div class="us-story"><em>En tant qu'</em> agent support, <em>je veux</em> gérer plusieurs conversations en parallèle, <em>afin de</em> traiter les demandes efficacement.</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>#</th><th>Critère d'acceptation</th></tr></thead>
-        <tbody>
-          <tr><td>CA-09-1</td><td>Colonne latérale listant toutes les conversations actives</td></tr>
-          <tr><td>CA-09-2</td><td>Conversations avec messages non lus distinguées visuellement (badge + couleur)</td></tr>
-          <tr><td>CA-09-3</td><td>Transfert de conversation à un collègue avec note de contexte</td></tr>
-          <tr><td>CA-09-4</td><td>Conversation marquable "Résolue" → archivée</td></tr>
-          <tr><td>CA-09-5</td><td>Ouverture d'une conversation → fiche client + réservations en cours visibles</td></tr>
-        </tbody>
-      </table></div>
-    </div>
-  </div>
-
-  <h3>Module 4 — Administration</h3>
-
-  <div class="us-card">
-    <div class="us-header">
-      <span class="us-id">US-10</span>
-      <span class="us-name">Gérer le catalogue de véhicules</span>
-    </div>
-    <div class="us-body">
-      <div class="us-story"><em>En tant qu'</em> administrateur, <em>je veux</em> ajouter, modifier et désactiver des véhicules, <em>afin que</em> l'offre présentée aux clients soit toujours à jour.</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>#</th><th>Critère d'acceptation</th></tr></thead>
-        <tbody>
-          <tr><td>CA-10-1</td><td>Champs : marque, modèle, année, catégorie, places, transmission, carburant, photo, prix/jour, agence</td></tr>
-          <tr><td>CA-10-2</td><td>Suppression bloquée si réservations futures liées (message explicatif)</td></tr>
-          <tr><td>CA-10-3</td><td>Chaque modification tracée dans le log d'audit (qui, quoi, quand)</td></tr>
-        </tbody>
-      </table></div>
-    </div>
-  </div>
-
-  <div class="us-card">
-    <div class="us-header">
-      <span class="us-id">US-11</span>
-      <span class="us-name">Gérer les agences</span>
-    </div>
-    <div class="us-body">
-      <div class="us-story"><em>En tant qu'</em> administrateur, <em>je veux</em> gérer la liste des agences, <em>afin que</em> les clients trouvent facilement les informations d'une agence.</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>#</th><th>Critère d'acceptation</th></tr></thead>
-        <tbody>
-          <tr><td>CA-11-1</td><td>Champs : nom, adresse, ville, pays, GPS (latitude/longitude), téléphone, e-mail, horaires</td></tr>
-          <tr><td>CA-11-2</td><td>Désactivation temporaire possible (masquée aux clients, historique conservé)</td></tr>
-          <tr><td>CA-11-3</td><td>Coordonnées GPS permettent l'affichage sur carte interactive</td></tr>
-        </tbody>
-      </table></div>
+      <div class="us-story"><em>En tant que</em> client ou agent, <em>je veux</em> envoyer des messages instantanés, <em>afin de</em> mener une conversation fluide.</div>
+      <div class="tw"><table><thead><tr><th width="12%">#</th><th>Critère d'acceptation</th></tr></thead><tbody>
+        <tr><td>CA-08-1</td><td>Message visible chez le destinataire en moins de 500 ms</td></tr>
+        <tr><td>CA-08-2</td><td>Horodatage affiché sur chaque message (HH:MM)</td></tr>
+        <tr><td>CA-08-3</td><td>Indicateur "Lu" quand le message a été vu</td></tr>
+        <tr><td>CA-08-4</td><td>Limite 2 000 caractères par message avec compteur affiché</td></tr>
+        <tr><td>CA-08-5</td><td>Connexion perdue → avertissement + reconnexion automatique toutes les 5 s</td></tr>
+        <tr><td>CA-08-6</td><td>Messages échappés avant affichage (protection XSS)</td></tr>
+      </tbody></table></div>
     </div>
   </div>
 </div>
 
-<!-- Section 6 -->
-<div class="section section-break">
-  <div class="section-header">
-    <div class="section-num">6</div>
-    <div class="section-titles">
-      <div class="section-title">Priorisation MoSCoW</div>
-      <div class="section-desc">Classement des fonctionnalités par niveau de priorité</div>
-    </div>
-  </div>
+<!-- S6 -->
+<div class="doc-body section section-break">
+  <div class="page-hd"><div class="page-hd-left">6. Priorisation MoSCoW</div><div class="page-hd-right">Your Car Your Way · Mai 2026</div></div>
+  <div class="sh"><div class="sh-num">6</div><div class="sh-text"><div class="sh-title">Priorisation MoSCoW</div><div class="sh-desc">Must · Should · Could · Won't have</div></div></div>
 
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>Fonctionnalité</th><th>Priorité</th><th>Justification</th></tr></thead>
-      <tbody>
-        <tr><td>Compte unique + authentification</td><td><span class="pill pill-must">Must have</span></td><td>Prérequis de toutes les autres fonctionnalités</td></tr>
-        <tr><td>Recherche et réservation</td><td><span class="pill pill-must">Must have</span></td><td>Cœur de métier, génère le chiffre d'affaires</td></tr>
-        <tr><td>Accessibilité WCAG 2.1 AA</td><td><span class="pill pill-must">Must have</span></td><td>Obligation légale (RGAA)</td></tr>
-        <tr><td>Conformité RGPD</td><td><span class="pill pill-must">Must have</span></td><td>Obligation légale (amende CNIL jusqu'à 4 % du CA)</td></tr>
-        <tr><td>Tchat temps réel</td><td><span class="pill pill-should">Should have</span></td><td>Fort différenciateur — e-mail reste temporairement utilisable</td></tr>
-        <tr><td>Historique réservations (24 mois)</td><td><span class="pill pill-should">Should have</span></td><td>Satisfaction client élevée</td></tr>
-        <tr><td>Export PDF des contrats</td><td><span class="pill pill-should">Should have</span></td><td>Service attendu mais non bloquant au lancement</td></tr>
-        <tr><td>Back-office administrateur</td><td><span class="pill pill-should">Should have</span></td><td>Opérationnel mais interne seulement</td></tr>
-        <tr><td>Export RGPD (téléchargement données)</td><td><span class="pill pill-could">Could have</span></td><td>Obligatoire légalement mais rarement utilisé</td></tr>
-        <tr><td>Paiement en ligne</td><td><span class="pill pill-wont">Won't have (v1)</span></td><td>Complexité PCI-DSS → Phase 2 dédiée</td></tr>
-        <tr><td>Application mobile native</td><td><span class="pill pill-wont">Won't have (v1)</span></td><td>Hors périmètre — Phase 3</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <div class="tw"><table>
+    <thead><tr><th>Fonctionnalité</th><th width="18%">Priorité</th><th>Justification</th></tr></thead>
+    <tbody>
+      <tr><td>Compte unique + authentification</td><td><span class="pill pill-must">Must have</span></td><td>Prérequis absolu de toutes les autres fonctionnalités</td></tr>
+      <tr><td>Recherche et réservation</td><td><span class="pill pill-must">Must have</span></td><td>Cœur de métier, génère le chiffre d'affaires</td></tr>
+      <tr><td>Accessibilité WCAG 2.1 AA</td><td><span class="pill pill-must">Must have</span></td><td>Obligation légale RGAA — non négociable</td></tr>
+      <tr><td>Conformité RGPD</td><td><span class="pill pill-must">Must have</span></td><td>Amende CNIL jusqu'à 4 % du CA mondial</td></tr>
+      <tr><td>Tchat temps réel</td><td><span class="pill pill-should">Should have</span></td><td>Différenciateur fort — e-mail reste temporairement utilisable</td></tr>
+      <tr><td>Historique réservations (24 mois)</td><td><span class="pill pill-should">Should have</span></td><td>Satisfaction client élevée</td></tr>
+      <tr><td>Export PDF des contrats</td><td><span class="pill pill-should">Should have</span></td><td>Service attendu mais non bloquant au lancement</td></tr>
+      <tr><td>Back-office administrateur</td><td><span class="pill pill-should">Should have</span></td><td>Opérationnel mais uniquement interne</td></tr>
+      <tr><td>Export RGPD (téléchargement données)</td><td><span class="pill pill-could">Could have</span></td><td>Légalement requis mais rarement utilisé</td></tr>
+      <tr><td>Paiement en ligne</td><td><span class="pill pill-wont">Won't (v1)</span></td><td>Complexité PCI-DSS → Phase 2 dédiée</td></tr>
+      <tr><td>Application mobile native</td><td><span class="pill pill-wont">Won't (v1)</span></td><td>Hors périmètre — Phase 3</td></tr>
+    </tbody>
+  </table></div>
 </div>
 
-<!-- Section 7 — Glossaire -->
-<div class="section section-break">
-  <div class="section-header">
-    <div class="section-num">7</div>
-    <div class="section-titles">
-      <div class="section-title">Glossaire</div>
-      <div class="section-desc">Définitions des termes techniques et réglementaires</div>
-    </div>
-  </div>
+<!-- S7 Glossaire -->
+<div class="doc-body section section-break">
+  <div class="page-hd"><div class="page-hd-left">7. Glossaire</div><div class="page-hd-right">Your Car Your Way · Mai 2026</div></div>
+  <div class="sh"><div class="sh-num">7</div><div class="sh-text"><div class="sh-title">Glossaire</div><div class="sh-desc">Définitions des termes techniques et réglementaires</div></div></div>
 
-  <div class="glossary-item"><span class="glossary-term">ARIA</span><span class="glossary-def">Attributs HTML spéciaux qui aident les lecteurs d'écran à comprendre une page web. Ex : <code>aria-live</code> pour les notifications du tchat.</span></div>
-  <div class="glossary-item"><span class="glossary-term">ASGI</span><span class="glossary-def">Interface de programmation permettant à un serveur web de gérer des connexions persistantes (WebSocket). Remplace WSGI qui ne le supporte pas.</span></div>
-  <div class="glossary-item"><span class="glossary-term">CSRF</span><span class="glossary-def">Cross-Site Request Forgery — attaque où un site malveillant envoie des actions à votre place sur un autre site. Les jetons CSRF l'empêchent.</span></div>
-  <div class="glossary-item"><span class="glossary-term">i18n</span><span class="glossary-def">Internationalisation (18 lettres entre i et n). Capacité d'un logiciel à s'adapter à plusieurs langues sans modifier son code source.</span></div>
-  <div class="glossary-item"><span class="glossary-term">MoSCoW</span><span class="glossary-def">Méthode de priorisation : Must have, Should have, Could have, Won't have. Permet de classer les fonctionnalités par importance.</span></div>
-  <div class="glossary-item"><span class="glossary-term">Persona</span><span class="glossary-def">Profil fictif représentant un type d'utilisateur, utilisé pour concevoir l'application en se mettant à leur place.</span></div>
-  <div class="glossary-item"><span class="glossary-term">PoC</span><span class="glossary-def">Proof of Concept — démonstration technique limitée prouvant qu'une fonctionnalité est réalisable avec la technologie choisie.</span></div>
-  <div class="glossary-item"><span class="glossary-term">PSH</span><span class="glossary-def">Personne en Situation de Handicap — terme générique incluant handicaps visuels, moteurs, cognitifs et auditifs.</span></div>
-  <div class="glossary-item"><span class="glossary-term">RGAA</span><span class="glossary-def">Référentiel Général d'Amélioration de l'Accessibilité — norme française d'accessibilité web, déclinaison du WCAG.</span></div>
-  <div class="glossary-item"><span class="glossary-term">RGPD</span><span class="glossary-def">Règlement Général sur la Protection des Données — loi européenne sur la vie privée, en vigueur depuis mai 2018.</span></div>
-  <div class="glossary-item"><span class="glossary-term">User story</span><span class="glossary-def">Façon de décrire une fonctionnalité du point de vue de l'utilisateur : qui fait quoi et pourquoi.</span></div>
-  <div class="glossary-item"><span class="glossary-term">WCAG</span><span class="glossary-def">Web Content Accessibility Guidelines — norme internationale d'accessibilité web éditée par le W3C.</span></div>
-  <div class="glossary-item"><span class="glossary-term">WebSocket</span><span class="glossary-def">Protocole de communication maintenant une connexion permanente entre le navigateur et le serveur, permettant l'échange instantané de messages.</span></div>
-  <div class="glossary-item"><span class="glossary-term">XSS</span><span class="glossary-def">Cross-Site Scripting — injection de code malveillant dans une page web. L'échappement HTML l'empêche.</span></div>
+  <div class="gl"><span class="gl-t">ARIA</span><span class="gl-d">Attributs HTML aidant les lecteurs d'écran. Ex : <code>aria-live</code> pour annoncer les nouveaux messages du tchat.</span></div>
+  <div class="gl"><span class="gl-t">ASGI</span><span class="gl-d">Interface permettant à Django de gérer des connexions WebSocket persistantes. Remplace WSGI (synchrone).</span></div>
+  <div class="gl"><span class="gl-t">CSRF</span><span class="gl-d">Cross-Site Request Forgery — attaque bloquée par les jetons CSRF intégrés à Django.</span></div>
+  <div class="gl"><span class="gl-t">i18n</span><span class="gl-d">Internationalisation — capacité d'un logiciel à s'adapter à plusieurs langues sans modifier son code.</span></div>
+  <div class="gl"><span class="gl-t">MoSCoW</span><span class="gl-d">Must / Should / Could / Won't — méthode de priorisation des fonctionnalités.</span></div>
+  <div class="gl"><span class="gl-t">Persona</span><span class="gl-d">Profil fictif représentant un type d'utilisateur, utilisé pour guider les décisions de conception.</span></div>
+  <div class="gl"><span class="gl-t">PoC</span><span class="gl-d">Proof of Concept — démonstration technique ciblée prouvant la faisabilité d'une fonctionnalité.</span></div>
+  <div class="gl"><span class="gl-t">PSH</span><span class="gl-d">Personne en Situation de Handicap — inclut handicaps visuels, moteurs, cognitifs et auditifs.</span></div>
+  <div class="gl"><span class="gl-t">RGAA</span><span class="gl-d">Référentiel Général d'Amélioration de l'Accessibilité — norme française, déclinaison du WCAG.</span></div>
+  <div class="gl"><span class="gl-t">RGPD</span><span class="gl-d">Règlement Général sur la Protection des Données — loi européenne sur la vie privée depuis mai 2018.</span></div>
+  <div class="gl"><span class="gl-t">User story</span><span class="gl-d">"En tant que [profil], je veux [action], afin de [bénéfice]." — unité de fonctionnalité vue utilisateur.</span></div>
+  <div class="gl"><span class="gl-t">WCAG</span><span class="gl-d">Web Content Accessibility Guidelines — norme internationale d'accessibilité web (W3C).</span></div>
+  <div class="gl"><span class="gl-t">WebSocket</span><span class="gl-d">Protocole de connexion persistante bidirectionnelle — base technique du tchat temps réel.</span></div>
+  <div class="gl"><span class="gl-t">XSS</span><span class="gl-d">Cross-Site Scripting — injection de code malveillant bloquée par l'échappement HTML.</span></div>
+
+  <div class="page-ft"><span>Your Car Your Way — Cahier des charges</span><span>V2.0 · Mai 2026 · Confidentiel</span></div>
 </div>
-
-</div><!-- /content -->
-</body>
-</html>
+</body></html>

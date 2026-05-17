@@ -1,419 +1,727 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<title>Fiche outils — Your Car Your Way</title>
-<style>
-  :root {
-    --blue-dark: #0f2942;
-    --blue-main: #1a4a7a;
-    --blue-mid:  #2d6da8;
-    --blue-pale: #f0f6fc;
-    --gold:      #e8a020;
-    --border:    #d0dce8;
-    --text:      #1c2b3a;
-    --light:     #4a6278;
-    --green:     #1e7e4e;
-    --green-bg:  #eafaf1;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    font-size: 10pt;
-    color: var(--text);
-    background: #f8fafc;
-    padding: 30px;
-  }
+<html lang="fr"><head><meta charset="UTF-8"><title>Fiche outils — Your Car Your Way</title>
+<style>/* ═══════════════════════════════════════════════════════
+   DESIGN SYSTEM — YOUR CAR YOUR WAY · v3
+   Style cabinet conseil premium · print-optimised
+═══════════════════════════════════════════════════════ */
 
-  .page {
-    max-width: 900px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 4px 24px rgba(15,41,66,0.10);
-  }
+/* ── Variables ─────────────────────────────────────── */
+:root {
+  --ink:      #08192e;
+  --navy:     #0c2d4f;
+  --blue:     #154f82;
+  --mid:      #2471a3;
+  --sky:      #3498db;
+  --pale:     #ebf5fb;
+  --lighter:  #f5fafd;
+  --gold:     #c9930a;
+  --gold-lt:  #fef9ee;
+  --border:   #ccdde9;
+  --text:     #1b2e3e;
+  --muted:    #5d7a8e;
+  --white:    #ffffff;
+  --green:    #1a6e3f;
+  --green-bg: #eafaf1;
+  --red:      #992b22;
+  --red-bg:   #fdf0ee;
+  --amber:    #a56c00;
+  --amber-bg: #fef6e4;
+}
 
-  /* Header */
-  .header {
-    background: linear-gradient(135deg, var(--blue-dark), var(--blue-main));
-    padding: 28px 36px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .header-left {}
-  .header-tag {
-    font-size: 7.5pt;
-    font-weight: 700;
-    color: var(--gold);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 6px;
-  }
-  .header-title {
-    font-size: 18pt;
-    font-weight: 800;
-    color: white;
-    line-height: 1.2;
-  }
-  .header-sub {
-    font-size: 9pt;
-    color: rgba(255,255,255,0.55);
-    margin-top: 4px;
-  }
-  .header-right {
-    text-align: right;
-    font-size: 8.5pt;
-    color: rgba(255,255,255,0.4);
-    line-height: 1.8;
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* Body */
-  .body { padding: 28px 36px 36px; }
+body {
+  font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+  line-height: 1.72;
+  color: var(--text);
+  background: white;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
 
-  /* Grid */
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 16px;
-  }
-  .grid-3 {
-    grid-template-columns: 1fr 1fr;
-  }
+/* ── @page ──────────────────────────────────────────── */
+@page { size: A4; margin: 0; }
 
-  /* Card */
-  .card {
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  .card-header {
-    padding: 10px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .card-icon { font-size: 16pt; }
-  .card-name { font-size: 11pt; font-weight: 800; color: var(--blue-dark); }
-  .card-version { font-size: 8pt; color: var(--light); margin-top: 1px; }
-  .card-body { padding: 12px 16px; background: white; }
-  .card-row { display: flex; gap: 8px; margin-bottom: 7px; align-items: flex-start; }
-  .card-label {
-    font-size: 7.5pt;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    min-width: 62px;
-    max-width: 62px;
-    padding-top: 2px;
-    color: var(--light);
-    flex-shrink: 0;
-    word-break: keep-all;
-  }
-  .card-val {
-    font-size: 9.5pt;
-    color: var(--text);
-    line-height: 1.55;
-    flex: 1;
-    min-width: 0;
-  }
-  .card-val code {
-    font-family: 'Courier New', monospace;
-    font-size: 8pt;
-    background: #f1f5f9;
-    padding: 1px 5px;
-    border-radius: 3px;
-    border: 1px solid #e2e8f0;
-    word-break: break-all;
-  }
+/* ── Couverture ─────────────────────────────────────── */
+.cover {
+  width: 210mm;
+  min-height: 297mm;
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  page-break-after: always;
+}
 
-  /* Colours per tool */
-  .c-plantuml .card-header { background: #fff8e1; }
-  .c-django    .card-header { background: #e8f5e9; }
-  .c-channels  .card-header { background: #e3f2fd; }
-  .c-redis     .card-header { background: #fce4ec; }
-  .c-postgres  .card-header { background: #e8eaf6; }
-  .c-daphne   .card-header { background: #f3e5f5; }
-  .c-drf       .card-header { background: #e0f2f1; }
-  .c-weasy     .card-header { background: #fff3e0; }
-  .c-python    .card-header { background: #fffde7; }
+/* formes géométriques décoratives */
+.cover-geo-1 {
+  position: absolute;
+  right: -30px; top: -30px;
+  width: 360px; height: 360px;
+  background: linear-gradient(135deg,rgba(255,255,255,0.055),rgba(255,255,255,0));
+  border-radius: 50%;
+}
+.cover-geo-2 {
+  position: absolute;
+  right: 60px; top: 60px;
+  width: 200px; height: 200px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.cover-geo-3 {
+  position: absolute;
+  left: -50px; bottom: 80px;
+  width: 240px; height: 240px;
+  border: 1px solid rgba(255,255,255,0.045);
+  border-radius: 50%;
+}
+.cover-band {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 56px; width: 3px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    var(--gold) 20%,
+    var(--gold) 80%,
+    transparent 100%);
+}
 
-  /* Q&A section */
-  .qa-section { margin-top: 20px; }
-  .qa-title {
-    font-size: 9pt;
-    font-weight: 700;
-    color: var(--blue-main);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 12px;
-    padding-bottom: 6px;
-    border-bottom: 2px solid var(--blue-pale);
-  }
-  .qa { margin-bottom: 12px; border-radius: 8px; overflow: hidden; border: 1.5px solid var(--border); }
-  .qa-q {
-    background: var(--blue-dark);
-    color: white;
-    font-size: 9pt;
-    font-weight: 700;
-    padding: 8px 14px;
-    display: flex;
-    gap: 8px;
-  }
-  .qa-q::before { content: 'Q'; color: var(--gold); font-weight: 800; }
-  .qa-a {
-    background: var(--blue-pale);
-    font-size: 9pt;
-    padding: 9px 14px;
-    color: var(--text);
-    line-height: 1.6;
-    padding-left: 28px;
-    position: relative;
-  }
-  .qa-a::before {
-    content: 'R';
-    position: absolute;
-    left: 12px;
-    font-weight: 800;
-    color: var(--green);
-  }
+.cover-inner {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 52px 68px;
+}
+.cover-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 72px;
+}
+.cover-logo-dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.cover-logo-text {
+  font-size: 8.5pt;
+  font-weight: 700;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.cover-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(201,147,10,0.45);
+  background: rgba(201,147,10,0.1);
+  color: #e8b84b;
+  font-size: 7pt;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 2px;
+  margin-bottom: 26px;
+}
+.cover-title {
+  font-size: 34pt;
+  font-weight: 900;
+  color: white;
+  line-height: 1.12;
+  margin-bottom: 18px;
+  max-width: 440px;
+  letter-spacing: -0.5px;
+}
+.cover-subtitle {
+  font-size: 11pt;
+  color: rgba(255,255,255,0.48);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 400px;
+  margin-bottom: 48px;
+}
+.cover-rule {
+  width: 40px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+  margin-bottom: 36px;
+}
+.cover-meta {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.cover-meta-item { }
+.cover-meta-label {
+  font-size: 6.5pt;
+  color: rgba(255,255,255,0.28);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 4px;
+}
+.cover-meta-value {
+  font-size: 9.5pt;
+  font-weight: 700;
+  color: rgba(255,255,255,0.78);
+}
+.cover-footer {
+  position: relative;
+  z-index: 2;
+  padding: 18px 68px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cover-footer-co {
+  font-size: 7.5pt;
+  color: rgba(255,255,255,0.28);
+}
+.cover-footer-conf {
+  font-size: 7pt;
+  color: rgba(255,255,255,0.18);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
 
-  /* Footer */
-  .footer {
-    border-top: 1.5px solid var(--border);
-    padding: 12px 36px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #f8fafc;
-  }
-  .footer-left { font-size: 8pt; color: var(--light); }
-  .footer-right { font-size: 8pt; color: var(--light); }
+/* ── Sommaire ───────────────────────────────────────── */
+.toc-page {
+  padding: 20mm 20mm 0;
+  page-break-after: always;
+}
+.toc-header {
+  border-bottom: 2px solid var(--navy);
+  padding-bottom: 10px;
+  margin-bottom: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.toc-header-title {
+  font-size: 8pt;
+  font-weight: 800;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.toc-header-doc {
+  font-size: 7.5pt;
+  color: var(--muted);
+}
+.toc-title {
+  font-size: 22pt;
+  font-weight: 900;
+  color: var(--navy);
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+.toc-sub {
+  font-size: 9.5pt;
+  color: var(--muted);
+  margin-bottom: 36px;
+}
+.toc-entry {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #eef4f8;
+}
+.toc-entry:last-child { border-bottom: none; }
+.toc-num {
+  background: var(--navy);
+  color: var(--gold);
+  font-size: 9pt;
+  font-weight: 900;
+  width: 32px; height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.toc-name {
+  flex: 1;
+  font-size: 10.5pt;
+  font-weight: 700;
+  color: var(--ink);
+}
+.toc-desc {
+  font-size: 8.5pt;
+  color: var(--muted);
+  margin-top: 1px;
+}
+.toc-dots {
+  flex: 0 0 60px;
+  border-bottom: 1px dotted var(--border);
+  margin: 0 8px;
+  height: 1px;
+  align-self: center;
+}
 
-  @media print {
-    body { background: white; padding: 0; }
-    .page { box-shadow: none; border-radius: 0; }
-  }
-</style>
-</head>
-<body>
-<div class="page">
+/* ── Body ───────────────────────────────────────────── */
+.doc-body { padding: 18mm 20mm; }
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header-left">
-      <div class="header-tag">Fiche de référence rapide</div>
-      <div class="header-title">Outils &amp; Technologies utilisés</div>
-      <div class="header-sub">Your Car Your Way — Projet P7 Architecture logicielle</div>
-    </div>
-    <div class="header-right">
-      Avril 2026<br>
-      Version 1.0<br>
-      Confidentiel
+/* en-tête de page */
+.page-hd {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 9px;
+  border-bottom: 2px solid var(--navy);
+  margin-bottom: 28px;
+}
+.page-hd-left {
+  font-size: 7pt;
+  font-weight: 800;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+.page-hd-right { font-size: 7.5pt; color: var(--muted); }
+
+/* ── Sections ───────────────────────────────────────── */
+.section { margin-bottom: 40px; }
+.section-break { page-break-before: always; }
+.no-break { page-break-inside: avoid; }
+
+.sh {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 22px;
+}
+.sh-num {
+  background: var(--navy);
+  color: var(--gold);
+  font-size: 16pt;
+  font-weight: 900;
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px 0 0 5px;
+  flex-shrink: 0;
+  letter-spacing: -1px;
+}
+.sh-text {
+  flex: 1;
+  background: var(--pale);
+  border: 1px solid var(--border);
+  border-left: none;
+  border-radius: 0 5px 5px 0;
+  padding: 9px 16px;
+}
+.sh-title {
+  font-size: 13pt;
+  font-weight: 900;
+  color: var(--navy);
+  line-height: 1.15;
+}
+.sh-desc {
+  font-size: 8pt;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* sous-titres */
+h3 {
+  font-size: 10.5pt;
+  font-weight: 800;
+  color: var(--blue);
+  margin: 26px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+h3::before {
+  content: '';
+  display: inline-block;
+  width: 3px; height: 14px;
+  background: var(--gold);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+h4 { font-size: 10pt; font-weight: 700; color: var(--text); margin: 16px 0 7px; }
+p  { margin-bottom: 9px; font-size: 10pt; }
+
+/* ── Tableaux ───────────────────────────────────────── */
+.tw { margin: 12px 0 20px; overflow-x: auto; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9pt;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--border);
+}
+thead tr { background: var(--navy); }
+thead th {
+  color: white;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+thead th:last-child { border-right: none; }
+tbody td {
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid #e8eff5;
+  vertical-align: top;
+  line-height: 1.5;
+}
+tbody td:last-child { border-right: none; }
+tbody tr:nth-child(even) td { background: var(--lighter); }
+tbody tr:last-child td { border-bottom: none; }
+td strong { color: var(--blue); }
+td code, th code {
+  font-family: 'Courier New', monospace;
+  font-size: 8pt;
+  background: rgba(12,45,79,0.08);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+.ok  { color: var(--green); font-weight: 700; }
+.bad { color: var(--red);   font-weight: 700; }
+.mid { color: var(--amber); font-weight: 700; }
+.win td { background: var(--green-bg) !important; }
+.win td:first-child { font-weight: 700; color: var(--green); }
+
+/* ── Callouts ───────────────────────────────────────── */
+.cl {
+  border-radius: 5px;
+  padding: 13px 16px;
+  margin: 12px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  page-break-inside: avoid;
+}
+.cl-icon { font-size: 13pt; flex-shrink: 0; margin-top: 1px; }
+.cl-title { font-size: 9.5pt; font-weight: 800; margin-bottom: 3px; }
+.cl-text  { font-size: 9pt; line-height: 1.58; }
+.cl.info    { background: var(--pale);     border-left: 3px solid var(--sky);   }
+.cl.info    .cl-title { color: var(--blue); }
+.cl.warn    { background: var(--amber-bg); border-left: 3px solid var(--gold);  }
+.cl.warn    .cl-title { color: var(--amber); }
+.cl.success { background: var(--green-bg); border-left: 3px solid var(--green); }
+.cl.success .cl-title { color: var(--green); }
+.cl.danger  { background: var(--red-bg);   border-left: 3px solid var(--red);   }
+.cl.danger  .cl-title { color: var(--red); }
+
+/* ── Pills ──────────────────────────────────────────── */
+.pill {
+  display: inline-block;
+  font-size: 7.5pt; font-weight: 700;
+  padding: 2px 9px; border-radius: 20px;
+}
+.pill-must   { background:#fde8e8; color:#7b241c; border:1px solid #e8a09a; }
+.pill-should { background:#fef9e7; color:#875a00; border:1px solid #f0c060; }
+.pill-could  { background:#e9f7ef; color:#196f3d; border:1px solid #7dcea0; }
+.pill-wont   { background:#f2f3f4; color:#626567; border:1px solid #bfc9ca; }
+
+/* ── Personas ───────────────────────────────────────── */
+.persona {
+  border-radius: 7px;
+  overflow: hidden;
+  margin: 16px 0;
+  page-break-inside: avoid;
+  box-shadow: 0 2px 12px rgba(8,25,46,0.09);
+}
+.persona-std { border-left: 4px solid var(--sky); }
+.persona-psh { border-left: 4px solid var(--gold); }
+.persona-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+}
+.persona-std .persona-head { background: linear-gradient(135deg, var(--lighter), #e8f4fb); }
+.persona-psh .persona-head { background: linear-gradient(135deg, #fffef5, var(--gold-lt)); }
+.persona-avatar {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24pt;
+  flex-shrink: 0;
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px var(--border);
+}
+.persona-std .persona-avatar { background: var(--pale); }
+.persona-psh .persona-avatar { background: #fdebd0; box-shadow: 0 0 0 2px rgba(201,147,10,0.3); }
+.persona-name { font-size: 11.5pt; font-weight: 800; color: var(--navy); margin-bottom: 3px; }
+.persona-role { font-size: 8.5pt; color: var(--muted); }
+.persona-body { padding: 0; background: white; }
+.persona-cols { display: grid; grid-template-columns: 1fr 1fr; }
+.persona-col { padding: 13px 16px; }
+.persona-col:first-child { border-right: 1px solid var(--border); }
+.persona-col-title {
+  font-size: 7.5pt; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1.2px; margin-bottom: 9px;
+  padding-bottom: 5px; border-bottom: 2px solid;
+}
+.persona-std .persona-col:first-child .persona-col-title { color: var(--sky);   border-color: var(--sky); }
+.persona-std .persona-col:last-child  .persona-col-title { color: var(--red);   border-color: var(--red); }
+.persona-psh .persona-col:first-child .persona-col-title { color: var(--green); border-color: var(--green); }
+.persona-psh .persona-col:last-child  .persona-col-title { color: var(--red);   border-color: var(--red); }
+.persona-col ul { list-style: none; padding: 0; }
+.persona-col li {
+  font-size: 9.5pt; padding: 5px 0 5px 15px;
+  position: relative; color: var(--text);
+  border-bottom: 1px solid #f0f5f9; line-height: 1.45;
+}
+.persona-col li:last-child { border-bottom: none; }
+.persona-col li::before {
+  content: '›'; position: absolute; left: 0;
+  font-weight: 900; font-size: 11pt; line-height: 1.1;
+}
+.persona-std .persona-col:first-child li::before { color: var(--sky); }
+.persona-std .persona-col:last-child  li::before { color: var(--red); }
+.persona-psh .persona-col:first-child li::before { color: var(--green); }
+.persona-psh .persona-col:last-child  li::before { color: var(--red); }
+.badge-psh {
+  display: inline-flex;
+  background: var(--gold);
+  color: white;
+  font-size: 7pt; font-weight: 800;
+  padding: 2px 8px; border-radius: 20px;
+  margin-left: 8px; vertical-align: middle;
+}
+
+/* ── User Stories ───────────────────────────────────── */
+.us {
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  overflow: hidden;
+  margin: 14px 0;
+  page-break-inside: avoid;
+  box-shadow: 0 1px 6px rgba(8,25,46,0.06);
+}
+.us-head {
+  background: var(--navy);
+  padding: 9px 15px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.us-id {
+  background: var(--gold);
+  color: var(--navy);
+  font-size: 7.5pt; font-weight: 800;
+  padding: 2px 9px; border-radius: 20px;
+  flex-shrink: 0;
+}
+.us-name { font-size: 10pt; font-weight: 700; color: white; }
+.us-body { padding: 13px 15px; background: white; }
+.us-story {
+  background: var(--pale);
+  border-left: 3px solid var(--sky);
+  padding: 9px 13px;
+  font-size: 9.5pt;
+  line-height: 1.65;
+  margin-bottom: 11px;
+  border-radius: 0 4px 4px 0;
+}
+.us-story em { color: var(--blue); font-style: normal; font-weight: 700; }
+
+/* ── Decision cards ──────────────────────────────────── */
+.dc-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 11px; margin: 12px 0; }
+.dc {
+  border-radius: 7px; padding: 13px;
+  border: 1.5px solid; page-break-inside: avoid;
+}
+.dc.ok { border-color: var(--green); background: var(--green-bg); }
+.dc.no { border-color: #c5cace;      background: #f8f9fa; }
+.dc-badge {
+  font-size: 7.5pt; font-weight: 700; padding: 2px 9px;
+  border-radius: 20px; display: inline-block; margin-bottom: 7px;
+}
+.dc-badge.ok { background: var(--green); color: white; }
+.dc-badge.no { background: #dde1e4;      color: #6b7280; }
+.dc-name { font-size: 10pt; font-weight: 800; color: var(--navy); margin-bottom: 7px; }
+.dc-item { font-size: 8.5pt; margin: 3px 0; line-height: 1.5; }
+.dc-item.pro { color: var(--green); }
+.dc-item.con { color: var(--red); }
+
+/* ── UML ─────────────────────────────────────────────── */
+.uml { margin: 16px 0 28px; page-break-inside: avoid; }
+.uml-lbl {
+  font-size: 7.5pt; font-weight: 800; color: var(--blue);
+  text-transform: uppercase; letter-spacing: 1.2px;
+  margin-bottom: 6px;
+  display: flex; align-items: center; gap: 9px;
+}
+.uml-lbl::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.uml-desc { font-size: 8.5pt; color: var(--muted); font-style: italic; margin-bottom: 9px; }
+.uml-frame {
+  background: var(--lighter);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 16px;
+  text-align: center;
+}
+.uml-frame img { max-width: 100%; height: auto; border-radius: 4px; }
+
+/* ── Glossaire ───────────────────────────────────────── */
+.gl {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #edf2f7;
+  align-items: baseline;
+}
+.gl-t {
+  font-family: 'Courier New', monospace;
+  font-size: 9pt; font-weight: 700;
+  color: var(--blue);
+}
+.gl-d { font-size: 9pt; color: var(--text); line-height: 1.5; }
+
+/* ── Pied de page ────────────────────────────────────── */
+.page-ft {
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 28px;
+  font-size: 7.5pt;
+  color: var(--muted);
+}
+
+/* ── Misc ────────────────────────────────────────────── */
+ul, ol { padding-left: 20px; margin: 8px 0; }
+li { margin: 4px 0; font-size: 9.5pt; line-height: 1.55; }
+code {
+  font-family: 'Courier New', monospace; font-size: 8.5pt;
+  background: rgba(12,45,79,0.07); padding: 1px 5px; border-radius: 3px;
+}
+pre {
+  font-family: 'Courier New', monospace; font-size: 8pt;
+  background: #0b1e30; color: #a8c8e8;
+  padding: 13px 15px; border-radius: 6px;
+  white-space: pre-wrap; word-wrap: break-word;
+  line-height: 1.5; margin: 11px 0;
+}
+strong { color: var(--blue); }
+
+.tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.tool { border: 1px solid var(--border); border-radius: 7px; overflow: hidden; page-break-inside: avoid; box-shadow: 0 1px 6px rgba(8,25,46,0.07); }
+.tool-head { padding: 12px 15px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); }
+.tool-icon { font-size: 17pt; flex-shrink: 0; }
+.tool-name { font-size: 10.5pt; font-weight: 800; color: var(--navy); }
+.tool-ver  { font-size: 7.5pt; color: var(--muted); margin-top: 1px; }
+.tool-body { padding: 11px 15px; background: white; }
+.tool-row  { display: flex; gap: 8px; margin-bottom: 5px; align-items: flex-start; }
+.tool-lbl  { font-size: 7pt; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: var(--muted); min-width: 62px; flex-shrink: 0; padding-top: 2px; }
+.tool-val  { font-size: 9pt; color: var(--text); line-height: 1.5; flex: 1; }
+.t-plantuml .tool-head { background: linear-gradient(135deg,#fffdf0,#fef9e7); }
+.t-weasy    .tool-head { background: linear-gradient(135deg,#fff8f0,#fef3e8); }
+.t-django   .tool-head { background: linear-gradient(135deg,#f0fdf4,#e8f8ee); }
+.t-channels .tool-head { background: linear-gradient(135deg,#eff8ff,#e4f3fd); }
+.t-redis    .tool-head { background: linear-gradient(135deg,#fff0f0,#fee8e8); }
+.t-postgres .tool-head { background: linear-gradient(135deg,#f0f0ff,#e8e8fc); }
+.t-daphne   .tool-head { background: linear-gradient(135deg,#faf0ff,#f3e8fd); }
+.t-drf      .tool-head { background: linear-gradient(135deg,#f0fff8,#e4faf0); }
+.qa { border: 1px solid var(--border); border-radius: 7px; overflow: hidden; margin-bottom: 9px; page-break-inside: avoid; box-shadow: 0 1px 5px rgba(8,25,46,0.06); }
+.qa-q { background: var(--navy); color: white; padding: 8px 14px; font-size: 9pt; font-weight: 700; display: flex; gap: 10px; }
+.qa-q::before { content: 'Q'; color: #e8b84b; font-weight: 900; flex-shrink: 0; }
+.qa-a { background: var(--lighter); padding: 9px 14px 9px 30px; font-size: 9pt; line-height: 1.58; color: var(--text); position: relative; }
+.qa-a::before { content: 'R'; position: absolute; left: 13px; top: 10px; font-weight: 900; color: var(--green); font-size: 10pt; }
+</style></head><body>
+<div class="cover">
+  <div class="cover-geo-1"></div><div class="cover-geo-2"></div>
+  <div class="cover-geo-3"></div><div class="cover-band"></div>
+  <div class="cover-inner">
+    <div class="cover-logo"><div class="cover-logo-dot"></div><div class="cover-logo-text">Your Car Your Way</div></div>
+    <div class="cover-eyebrow">Fiche de référence rapide</div>
+    <div class="cover-title">Outils &amp;<br>Technologies</div>
+    <div class="cover-subtitle">Stack technique · Justifications · Questions fréquentes du mentor</div>
+    <div class="cover-rule"></div>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><div class="cover-meta-label">Projet</div><div class="cover-meta-value">P7 Architecture</div></div>
+      <div class="cover-meta-item"><div class="cover-meta-label">Date</div><div class="cover-meta-value">Mai 2026</div></div>
+      <div class="cover-meta-item"><div class="cover-meta-label">Usage</div><div class="cover-meta-value">Référence mentor</div></div>
     </div>
   </div>
-
-  <div class="body">
-
-    <!-- LIGNE 1 -->
-    <div class="grid">
-
-      <!-- PlantUML -->
-      <div class="card c-plantuml">
-        <div class="card-header">
-          <div class="card-icon">📐</div>
-          <div>
-            <div class="card-name">PlantUML</div>
-            <div class="card-version">v1.2024 · Open source · Java</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-row"><span class="card-label">Rôle</span><span class="card-val">Génération des <strong>4 diagrammes UML</strong> à partir de fichiers texte (<code>.puml</code>)</span></div>
-          <div class="card-row"><span class="card-label">Diagrammes</span><span class="card-val">Classes · Composants · Séquence · Déploiement</span></div>
-          <div class="card-row"><span class="card-label">Pourquoi</span><span class="card-val">Standard industrie. Les diagrammes sont du texte versionnable (Git). Reproductibles et modifiables facilement.</span></div>
-          <div class="card-row"><span class="card-label">Commande</span><span class="card-val"><code>plantuml -tpng docs/uml/*.puml</code></span></div>
-          <div class="card-row"><span class="card-label">Sortie</span><span class="card-val">PNG haute résolution intégrés dans les PDF</span></div>
-        </div>
-      </div>
-
-      <!-- WeasyPrint -->
-      <div class="card c-weasy">
-        <div class="card-header">
-          <div class="card-icon">📄</div>
-          <div>
-            <div class="card-name">WeasyPrint</div>
-            <div class="card-version">v62 · Open source · Python</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-row"><span class="card-label">Rôle</span><span class="card-val">Conversion des fichiers <strong>HTML → PDF</strong> pour les deux livrables documents</span></div>
-          <div class="card-row"><span class="card-label">Pourquoi</span><span class="card-val">Permet de maîtriser le rendu à 100% en CSS pur. Les images UML (base64) sont intégrées directement dans le HTML → PDF auto-portant.</span></div>
-          <div class="card-row"><span class="card-label">Commande</span><span class="card-val"><code>python3 docs/generate_pdf.py</code></span></div>
-          <div class="card-row"><span class="card-label">vs Pandoc</span><span class="card-val">Pandoc nécessite LaTeX (lourd). WeasyPrint utilise CSS natif, plus simple et plus rapide à personnaliser.</span></div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- LIGNE 2 — stack technique PoC -->
-    <div class="grid">
-
-      <!-- Django -->
-      <div class="card c-django">
-        <div class="card-header">
-          <div class="card-icon">🟢</div>
-          <div>
-            <div class="card-name">Django 4.2 LTS</div>
-            <div class="card-version">Python · Open source</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-row"><span class="card-label">Rôle</span><span class="card-val">Framework web backend principal</span></div>
-          <div class="card-row"><span class="card-label">Apporte</span><span class="card-val">ORM · Admin auto-généré · Auth · i18n · CSRF</span></div>
-          <div class="card-row"><span class="card-label">LTS</span><span class="card-val">Support sécurité garanti jusqu'en avril 2026</span></div>
-          <div class="card-row"><span class="card-label">Vs FastAPI</span><span class="card-val">Admin et ORM intégrés = plusieurs semaines économisées</span></div>
-        </div>
-      </div>
-
-      <!-- Django Channels -->
-      <div class="card c-channels">
-        <div class="card-header">
-          <div class="card-icon">⚡</div>
-          <div>
-            <div class="card-name">Django Channels 4</div>
-            <div class="card-version">Extension Django officielle</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-row"><span class="card-label">Rôle</span><span class="card-val">Tchat temps réel via <strong>WebSocket</strong></span></div>
-          <div class="card-row"><span class="card-label">Comment</span><span class="card-val">Transforme Django de WSGI → <strong>ASGI</strong> pour gérer les connexions persistantes</span></div>
-          <div class="card-row"><span class="card-label">Consumer</span><span class="card-val"><code>AsyncWebsocketConsumer</code> : connect · receive · disconnect</span></div>
-          <div class="card-row"><span class="card-label">Vs Socket.io</span><span class="card-val">Pas de second service Node.js à maintenir à côté</span></div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- LIGNE 3 -->
-    <div class="grid">
-
-      <!-- Redis -->
-      <div class="card c-redis">
-        <div class="card-header">
-          <div class="card-icon">🔴</div>
-          <div>
-            <div class="card-name">Redis 7</div>
-            <div class="card-version">Base de données en mémoire · Open source</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-row"><span class="card-label">Rôle</span><span class="card-val"><strong>Channel Layer</strong> : diffuse les messages WebSocket entre les workers Daphne</span></div>
-          <div class="card-row"><span class="card-label">Aussi</span><span class="card-val">Cache de sessions, cache de requêtes fréquentes</span></div>
-          <div class="card-row"><span class="card-label">Latence</span><span class="card-val">Ordre de la microseconde (stockage en mémoire RAM)</span></div>
-          <div class="card-row"><span class="card-label">En prod</span><span class="card-val">AWS ElastiCache (service Redis managé sur le cloud)</span></div>
-        </div>
-      </div>
-
-      <!-- PostgreSQL -->
-      <div class="card c-postgres">
-        <div class="card-header">
-          <div class="card-icon">🐘</div>
-          <div>
-            <div class="card-name">PostgreSQL 15</div>
-            <div class="card-version">Open source · Base relationnelle SQL</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-row"><span class="card-label">Rôle</span><span class="card-val">Base de données principale de l'application</span></div>
-          <div class="card-row"><span class="card-label">Pourquoi</span><span class="card-val">Schéma strict · transactions ACID · support ORM Django natif · extension PostGIS (géo)</span></div>
-          <div class="card-row"><span class="card-label">Vs MongoDB</span><span class="card-val">L'audit a montré les problèmes concrets de données incohérentes sans schéma</span></div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- LIGNE 4 -->
-    <div class="grid">
-
-      <!-- Daphne -->
-      <div class="card c-daphne">
-        <div class="card-header">
-          <div class="card-icon">🌐</div>
-          <div>
-            <div class="card-name">Daphne</div>
-            <div class="card-version">Serveur ASGI · Équipe Django Channels</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-row"><span class="card-label">Rôle</span><span class="card-val">Serveur qui exécute Django en mode ASGI (HTTP + WebSocket simultanément)</span></div>
-          <div class="card-row"><span class="card-label">Pourquoi</span><span class="card-val">Gunicorn (WSGI classique) ne supporte pas WebSocket — Daphne est obligatoire dès qu'on utilise Channels</span></div>
-          <div class="card-row"><span class="card-label">En prod</span><span class="card-val">Placé derrière Nginx qui gère TLS (HTTPS/WSS) et le cache des fichiers statiques</span></div>
-        </div>
-      </div>
-
-      <!-- DRF -->
-      <div class="card c-drf">
-        <div class="card-header">
-          <div class="card-icon">🔌</div>
-          <div>
-            <div class="card-name">Django REST Framework</div>
-            <div class="card-version">DRF 3.14 · Open source</div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="card-row"><span class="card-label">Rôle</span><span class="card-val">API REST pour l'historique des messages et la liste des rooms</span></div>
-          <div class="card-row"><span class="card-label">Apporte</span><span class="card-val">Sérialisation JSON · pagination · authentification · documentation automatique</span></div>
-          <div class="card-row"><span class="card-label">Vs GraphQL</span><span class="card-val">REST suffisant pour des besoins bien définis, outillage plus simple et mature</span></div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Q&A -->
-    <div class="qa-section">
-      <div class="qa-title">Questions fréquentes du mentor — Réponses préparées</div>
-
-      <div class="qa">
-        <div class="qa-q">Pourquoi PlantUML plutôt que Draw.io ou Lucidchart ?</div>
-        <div class="qa-a">PlantUML génère des diagrammes à partir de <strong>texte simple</strong> (fichiers <code>.puml</code>). Ça veut dire qu'ils sont <strong>versionnables dans Git</strong> (on voit les changements comme du code), reproductibles à l'identique, et modifiables sans ouvrir un outil graphique. C'est le choix standard en entreprise pour les projets qui évoluent. Draw.io c'est bien pour une démo rapide, mais pas adapté à un projet versionné.</div>
-      </div>
-
-      <div class="qa">
-        <div class="qa-q">Comment vous avez généré les PDF ?</div>
-        <div class="qa-a">J'ai d'abord écrit les documents en <strong>HTML/CSS</strong> pour avoir un contrôle total sur le rendu (mise en page, couleurs, tableaux, cartes). Ensuite j'ai utilisé <strong>WeasyPrint</strong>, une bibliothèque Python qui convertit HTML → PDF en respectant les standards CSS. Les diagrammes UML (PNG) sont encodés en base64 et intégrés directement dans le HTML, ce qui rend les PDF totalement auto-portants — pas de fichier externe manquant.</div>
-      </div>
-
-      <div class="qa">
-        <div class="qa-q">Pourquoi Django Channels plutôt qu'une autre solution pour le tchat ?</div>
-        <div class="qa-a">Parce que c'est l'extension <strong>officielle</strong> de Django pour les WebSockets. Elle s'intègre sans friction — pas besoin d'un second service (pas de Node.js à maintenir à côté). Elle transforme Django de WSGI (synchrone, pas de WS) en ASGI (asynchrone, supporte WS). Redis joue le rôle de "standard téléphonique" qui synchronise les messages entre plusieurs workers en parallèle.</div>
-      </div>
-
-      <div class="qa">
-        <div class="qa-q">C'est quoi ASGI et pourquoi c'est différent de WSGI ?</div>
-        <div class="qa-a"><strong>WSGI</strong> (ancien standard) : le serveur traite une requête, attend la réponse, ferme la connexion. Une connexion = une requête = une réponse. <strong>ASGI</strong> (nouveau standard) : la connexion peut rester ouverte indéfiniment, le serveur peut envoyer des données à tout moment sans que le client l'ait demandé. C'est ce qui permet le WebSocket. Daphne est le serveur ASGI officiel de l'équipe Django Channels.</div>
-      </div>
-
-      <div class="qa">
-        <div class="qa-q">Pourquoi PostgreSQL et pas MySQL ou MongoDB ?</div>
-        <div class="qa-a">L'audit a montré que MongoDB sans schéma strict a créé des <strong>incohérences de données</strong> dans l'application nord-américaine existante. PostgreSQL impose un schéma, garantit les <strong>transactions ACID</strong> (si une réservation échoue à mi-chemin, la base revient à son état antérieur — pas de données corrompues), et a un support Django ORM natif et premium. MySQL aurait aussi fonctionné mais PostgreSQL a de meilleures extensions (PostGIS pour la géolocalisation future).</div>
-      </div>
-
-      <div class="qa">
-        <div class="qa-q">Pourquoi le champ author est nullable dans Message ?</div>
-        <div class="qa-a">C'est une décision de conformité <strong>RGPD</strong>. Quand un client supprime son compte, on ne peut pas supprimer ses messages (l'historique de la conversation reste utile pour le support en cas de litige). On applique alors le <strong>SET_NULL</strong> de Django : le message est conservé, mais son auteur devient NULL et s'affiche "Utilisateur supprimé" dans l'interface. C'est de l'<strong>anonymisation</strong> plutôt que de la suppression.</div>
-      </div>
-
-    </div>
-
-  </div><!-- /body -->
-
-  <div class="footer">
-    <div class="footer-left">Your Car Your Way · Projet P7 · Architecture logicielle · Avril 2026</div>
-    <div class="footer-right">Fiche de référence — usage interne</div>
+  <div class="cover-footer">
+    <div class="cover-footer-co">Your Car Your Way · Direction Technique · Refonte applicative 2026</div>
+    <div class="cover-footer-conf">Usage interne</div>
   </div>
+</div>
 
-</div><!-- /page -->
-</body>
-</html>
+<div class="doc-body">
+<div class="page-hd"><div class="page-hd-left">Fiche outils &amp; technologies</div><div class="page-hd-right">Your Car Your Way · Mai 2026</div></div>
+<div class="sh"><div class="sh-num" style="font-size:12pt;">📐</div><div class="sh-text"><div class="sh-title">Outils de production des livrables</div><div class="sh-desc">PlantUML pour les diagrammes · WeasyPrint pour les PDF</div></div></div>
+
+<div class="tool-grid">
+<div class="tool t-plantuml">
+  <div class="tool-head"><div class="tool-icon">📐</div><div><div class="tool-name">PlantUML</div><div class="tool-ver">v1.2024 · Open source · Java</div></div></div>
+  <div class="tool-body"><div class="tool-row"><span class="tool-lbl">Rôle</span><span class="tool-val">Génération des <strong>4 diagrammes UML</strong> depuis des fichiers texte (<code>.puml</code>)</span></div><div class="tool-row"><span class="tool-lbl">Diagrammes</span><span class="tool-val">Classes · Composants · Séquence · Déploiement</span></div><div class="tool-row"><span class="tool-lbl">Avantage</span><span class="tool-val">Fichiers texte versionnables dans Git. Reproductibles sans outil graphique.</span></div><div class="tool-row"><span class="tool-lbl">Commande</span><span class="tool-val"><code>plantuml -tpng docs/uml/*.puml</code></span></div><div class="tool-row"><span class="tool-lbl">Vs Draw.io</span><span class="tool-val">Draw.io = binaire non versionnable. PlantUML = texte pur dans Git.</span></div></div>
+</div>
+<div class="tool t-weasy">
+  <div class="tool-head"><div class="tool-icon">📄</div><div><div class="tool-name">WeasyPrint 62</div><div class="tool-ver">Open source · Python · HTML→PDF</div></div></div>
+  <div class="tool-body"><div class="tool-row"><span class="tool-lbl">Rôle</span><span class="tool-val">Conversion <strong>HTML/CSS → PDF</strong> pour les deux livrables documents</span></div><div class="tool-row"><span class="tool-lbl">Avantage</span><span class="tool-val">Contrôle total du rendu via CSS pur. Images base64 intégrées → PDF auto-portant.</span></div><div class="tool-row"><span class="tool-lbl">Commande</span><span class="tool-val"><code>python3 docs/generate_pdf.py</code></span></div><div class="tool-row"><span class="tool-lbl">Vs Pandoc</span><span class="tool-val">Pandoc nécessite LaTeX (lourd). WeasyPrint = CSS natif, simple et rapide.</span></div></div>
+</div>
+</div>
+
+<div class="sh" style="margin-top:8px;"><div class="sh-num" style="font-size:12pt;">⚙</div><div class="sh-text"><div class="sh-title">Stack technique de la PoC tchat</div><div class="sh-desc">Django · Channels · Redis · PostgreSQL · Daphne · DRF</div></div></div>
+
+<div class="tool-grid">
+<div class="tool t-django">
+  <div class="tool-head"><div class="tool-icon">🟢</div><div><div class="tool-name">Django 4.2 LTS</div><div class="tool-ver">Python · Open source · 20 ans d'existence</div></div></div>
+  <div class="tool-body"><div class="tool-row"><span class="tool-lbl">Rôle</span><span class="tool-val">Framework web backend principal</span></div><div class="tool-row"><span class="tool-lbl">Apporte</span><span class="tool-val">ORM · Admin auto-généré · Auth · i18n · CSRF · Migrations</span></div><div class="tool-row"><span class="tool-lbl">LTS</span><span class="tool-val">Support sécurité garanti jusqu'en avril 2026</span></div><div class="tool-row"><span class="tool-lbl">Vs FastAPI</span><span class="tool-val">Admin + ORM intégrés = plusieurs semaines de dev économisées</span></div></div>
+</div>
+<div class="tool t-channels">
+  <div class="tool-head"><div class="tool-icon">⚡</div><div><div class="tool-name">Django Channels 4</div><div class="tool-ver">Extension Django officielle · ASGI</div></div></div>
+  <div class="tool-body"><div class="tool-row"><span class="tool-lbl">Rôle</span><span class="tool-val">Tchat temps réel via <strong>WebSocket</strong></span></div><div class="tool-row"><span class="tool-lbl">Comment</span><span class="tool-val">Transforme Django de WSGI → <strong>ASGI</strong> pour connexions persistantes</span></div><div class="tool-row"><span class="tool-lbl">Consumer</span><span class="tool-val"><code>AsyncWebsocketConsumer</code> : connect · receive · disconnect</span></div><div class="tool-row"><span class="tool-lbl">Vs Socket.io</span><span class="tool-val">Pas de second service Node.js à maintenir</span></div></div>
+</div>
+</div>
+<div class="tool-grid">
+<div class="tool t-redis">
+  <div class="tool-head"><div class="tool-icon">🔴</div><div><div class="tool-name">Redis 7</div><div class="tool-ver">Base en mémoire · Open source · µs de latence</div></div></div>
+  <div class="tool-body"><div class="tool-row"><span class="tool-lbl">Rôle</span><span class="tool-val"><strong>Channel Layer</strong> : diffuse les messages WebSocket entre workers Daphne</span></div><div class="tool-row"><span class="tool-lbl">Aussi</span><span class="tool-val">Cache sessions · cache requêtes fréquentes</span></div><div class="tool-row"><span class="tool-lbl">En prod</span><span class="tool-val">AWS ElastiCache (service Redis managé sur le cloud)</span></div></div>
+</div>
+<div class="tool t-postgres">
+  <div class="tool-head"><div class="tool-icon">🐘</div><div><div class="tool-name">PostgreSQL 15</div><div class="tool-ver">Relationnel SQL · Open source</div></div></div>
+  <div class="tool-body"><div class="tool-row"><span class="tool-lbl">Rôle</span><span class="tool-val">Base de données principale de l'application</span></div><div class="tool-row"><span class="tool-lbl">Pourquoi</span><span class="tool-val">Schéma strict · ACID · ORM Django natif premium · PostGIS</span></div><div class="tool-row"><span class="tool-lbl">Vs MongoDB</span><span class="tool-val">L'audit a montré les problèmes de données incohérentes sans schéma fixe</span></div></div>
+</div>
+</div>
+<div class="tool-grid">
+<div class="tool t-daphne">
+  <div class="tool-head"><div class="tool-icon">🌐</div><div><div class="tool-name">Daphne</div><div class="tool-ver">Serveur ASGI · Équipe Django Channels</div></div></div>
+  <div class="tool-body"><div class="tool-row"><span class="tool-lbl">Rôle</span><span class="tool-val">Serveur Django en mode ASGI : HTTP + WebSocket simultanément</span></div><div class="tool-row"><span class="tool-lbl">Pourquoi</span><span class="tool-val">Gunicorn (WSGI) ne supporte pas WebSocket — obligatoire avec Channels</span></div><div class="tool-row"><span class="tool-lbl">En prod</span><span class="tool-val">Derrière Nginx : TLS, cache statiques, load balancing</span></div></div>
+</div>
+<div class="tool t-drf">
+  <div class="tool-head"><div class="tool-icon">🔌</div><div><div class="tool-name">Django REST Framework</div><div class="tool-ver">DRF 3.14 · Open source</div></div></div>
+  <div class="tool-body"><div class="tool-row"><span class="tool-lbl">Rôle</span><span class="tool-val">API REST pour l'historique des messages et la liste des rooms</span></div><div class="tool-row"><span class="tool-lbl">Apporte</span><span class="tool-val">Sérialisation JSON · pagination · authentification · doc auto</span></div><div class="tool-row"><span class="tool-lbl">Vs GraphQL</span><span class="tool-val">REST suffisant pour des besoins bien définis — plus simple</span></div></div>
+</div>
+</div>
+
+<div class="sh" style="margin-top:8px;"><div class="sh-num" style="font-size:12pt;">?</div><div class="sh-text"><div class="sh-title">Questions fréquentes du mentor</div><div class="sh-desc">Réponses préparées — à connaître</div></div></div>
+
+<div class="qa"><div class="qa-q">Pourquoi PlantUML plutôt que Draw.io ou Lucidchart ?</div><div class="qa-a">PlantUML génère des diagrammes depuis du <strong>texte pur</strong> (<code>.puml</code>) — versionnables dans Git comme du code. Draw.io produit des binaires XML non versionnables. C'est le standard industrie pour les projets qui évoluent dans le temps.</div></div>
+<div class="qa"><div class="qa-q">Comment avez-vous généré les PDF ?</div><div class="qa-a">Documents écrits en <strong>HTML/CSS</strong> pour contrôle total du rendu. <strong>WeasyPrint</strong> (Python) les convertit en PDF. Images UML encodées en base64 dans le HTML → PDF auto-portant, aucun fichier externe manquant.</div></div>
+<div class="qa"><div class="qa-q">Pourquoi Django Channels et pas Socket.io ?</div><div class="qa-a">Channels est l'extension <strong>officielle</strong> de Django pour WebSocket — pas de second service Node.js. Transforme Django de WSGI (synchrone) en <strong>ASGI</strong> (asynchrone, WebSocket). Redis = standard téléphonique entre workers.</div></div>
+<div class="qa"><div class="qa-q">ASGI vs WSGI — quelle différence ?</div><div class="qa-a"><strong>WSGI</strong> : 1 requête → 1 réponse → connexion fermée. <strong>ASGI</strong> : connexion persistante, le serveur envoie des données sans demande du client. C'est ce qui rend le WebSocket possible. Daphne = serveur ASGI officiel de l'équipe Channels.</div></div>
+<div class="qa"><div class="qa-q">Pourquoi PostgreSQL et pas MongoDB ?</div><div class="qa-a">L'audit a montré que MongoDB sans schéma strict a créé des <strong>données incohérentes</strong> dans l'existant. PostgreSQL garantit les <strong>transactions ACID</strong> (si une réservation échoue, la base revient à son état antérieur). ORM Django natif premium.</div></div>
+<div class="qa"><div class="qa-q">Pourquoi author est nullable dans Message ?</div><div class="qa-a">Conformité <strong>RGPD</strong>. On ne supprime pas les messages (historique utile pour les litiges). <code>SET_NULL</code> Django : à la suppression du compte, <code>author = NULL</code> → «Utilisateur supprimé». C'est de l'<strong>anonymisation</strong>, pas de la suppression.</div></div>
+<div class="qa"><div class="qa-q">Qu'est-ce que la PoC prouve exactement ?</div><div class="qa-a"><strong>1)</strong> Django + Channels + Redis permet le temps réel WebSocket. <strong>2)</strong> Messages persistés en PostgreSQL via le modèle <code>Message</code>. <strong>3)</strong> Structure du code prête à être étendue. La PoC ne prouve pas l'UI — volontairement limitée au tchat.</div></div>
+
+<div class="page-ft"><span>Your Car Your Way — Fiche outils &amp; technologies</span><span>V1.0 · Mai 2026 · Usage interne</span></div>
+</div>
+</body></html>

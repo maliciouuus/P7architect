@@ -1,0 +1,22 @@
+services:
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  web:
+    build: ./backend
+    entrypoint: ["/entrypoint.sh"]
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings
+      - SECRET_KEY=dev-secret-key-changer-en-prod
+      - DEBUG=True
+      - ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
