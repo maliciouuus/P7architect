@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tchat — {{ room.name }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        h1 { color: #1a3c5e; }
+        #chat-log {
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 12px;
+            height: 400px;
+            overflow-y: auto;
+            background: #f9f9f9;
+            margin-bottom: 12px;
+        }
+        .message { margin: 6px 0; }
+        .message .meta { font-size: 0.8em; color: #888; }
+        .message .author { font-weight: bold; color: #1a3c5e; }
+        .message.mine .author { color: #2e7d32; }
+        #chat-form { display: flex; gap: 8px; }
+        #chat-message-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+        #chat-message-submit {
+            padding: 10px 20px;
+            background: #1a3c5e;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        #chat-message-submit:hover { background: #14305a; }
+        #status { font-size: 0.85em; margin-top: 8px; }
+        .connected { color: green; }
+        .disconnected { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Salon : {{ room.name }}</h1>
+    <p>Connecté en tant que : <strong>{{ request.user.username }}</strong> | <a href="{% url 'chat-index' %}">← Retour</a></p>
+
+    <div id="chat-log" role="log" aria-live="polite" aria-label="Messages du tchat"></div>
+
+    <form id="chat-form" aria-label="Envoyer un message">
+        <label for="chat-message-input" class="sr-only">Votre message</label>
+        <input
+            id="chat-message-input"
+            type="text"
+            placeholder="Écrivez votre message..."
+            autocomplete="off"
+            aria-label="Votre message"
+            maxlength="2000"
+        >
+        <button id="chat-message-submit" type="submit">Envoyer</button>
+    </form>
+    <p id="status" class="disconnected">Connexion en cours...</p>
+
+    <script>
+        const roomName = "{{ room.name }}";
+        const currentUser = "{{ request.user.username }}";
+        const chatLog = document.getElementById("chat-log");
+        const statusEl = document.getElementById("status");
+        const input = document.getElementById("chat-message-input");
+        const form = document.getElementById("chat-form");
+
+        // Connexion WebSocket
+        const wsProtocol = window.location.protocol === "https:" ? "wss" : "ws";
+        const chatSocket = new WebSocket(
+            `${wsProtocol}://${window.location.host}/ws/chat/${roomName}/`
+        );
+
+        chatSocket.onopen = () => {
+            statusEl.textContent = "Connecté";
+            statusEl.className = "connected";
+        };
+
+        chatSocket.onclose = () => {
+            statusEl.textContent = "Déconnecté — rechargez la page";
+            statusEl.className = "disconnected";
+        };
+
+        chatSocket.onmessage = (e) => {
+            const data = JSON.parse(e.data);
+
+            if (data.error) {
+                console.error("Erreur serveur :", data.error);
+                return;
+            }
+
+            const isMine = data.author === currentUser;
+            const time = new Date(data.sent_at).toLocaleTimeString("fr-FR", {
+                hour: "2-digit",
+                minute: "2-digit",
+            });
+
+            const div = document.createElement("div");
+            div.className = `message${isMine ? " mine" : ""}`;
+            div.innerHTML = `
+                <span class="author">${escapeHtml(data.author)}</span>
+                <span class="meta"> — ${time}</span>
+                <p>${escapeHtml(data.message)}</p>
+            `;
+            chatLog.appendChild(div);
+            chatLog.scrollTop = chatLog.scrollHeight;
+        };
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const message = input.value.trim();
+            if (!message) return;
+            chatSocket.send(JSON.stringify({ message }));
+            input.value = "";
+        });
+
+        // Protection basique contre XSS dans l'affichage
+        function escapeHtml(text) {
+            const div = document.createElement("div");
+            div.appendChild(document.createTextNode(text));
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

@@ -7,7 +7,7 @@ intégration d'un framework JavaScript (React ou Vue.js) en Phase 3.
 
 L'architecture actuelle est un **monolithe Django** : les pages HTML
 sont rendues côté serveur via les templates Django situés dans
-`backend/chat/templates/`.
+`chat/templates/`.
 
 Ce dossier anticipe une évolution possible vers une architecture
 découplée (SPA) sans avoir à restructurer le dépôt.

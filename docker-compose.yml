@@ -6,10 +6,10 @@ services:
       - "6379:6379"
 
   web:
-    build: ./backend
+    build: .
     entrypoint: ["/entrypoint.sh"]
     volumes:
-      - ./backend:/app
+      - .:/app
     ports:
       - "8000:8000"
     environment:
